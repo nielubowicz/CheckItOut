@@ -8,7 +8,9 @@
 
 #import "ParseNetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
+#import "CIOJSONRequestSerializer.h"
 #import "CIOURLFactory.h"
+
 
 @interface ParseNetworkManager ()
 
@@ -29,39 +31,60 @@
     return networkManager;
 }
 
-- (AFURLSessionManager *)URLsession
-{
-    if (_URLsession == nil) {
-        NSURLSessionConfiguration *urlSessionConfiguration  = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _URLsession = [NSURLSession sessionWithConfiguration:urlSessionConfiguration];
-    }
-    return _URLsession;
-}
-
-- (NSMutableURLRequest *)preparedRequestWithURL:(NSURL *)URL
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    
-    return request;
-}
-
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password
 {
-    NSURLSession *session = [self URLsession];
-    NSURL *userEndpoint = [CIOURLFactory userEndpoint];
-    NSMutableURLRequest *request = [self preparedRequestWithURL:userEndpoint];
-    [request setHTTPMethod:@"PUT"];
+    NSDictionary *parameters = @{
+                                 @"username" : userEmail,
+                                 @"email" : userEmail,
+                                 @"password" : password
+                                 };
     
-    [[session dataTaskWithRequest:request
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    
-                    
-                }] resume];
+    NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
+                                                                                  URLString:[CIOURLFactory userEndpointString]
+                                                                                 parameters:parameters
+                                                                                      error:NULL];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+        // TODO: save session token for later use
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+        
+    }];
+    
+    [self.operationQueue addOperation:requestOperation];
 }
 
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password
 {
+    NSDictionary *parameters = @{
+                                 @"username" : userEmail,
+                                 @"password" : password
+                                 };
     
+    NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                  URLString:[CIOURLFactory loginEndpointString]
+                                                                                 parameters:parameters
+                                                                                      error:NULL];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // TODO: save session token for later use
+        NSLog(@"%s %@", __PRETTY_FUNCTION__, responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+        
+    }];
+    
+    [self.operationQueue addOperation:requestOperation];
 }
 
 @end

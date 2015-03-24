@@ -7,26 +7,17 @@
 //
 
 #import "CIOJSONRequestSerializer.h"
+#import "CIOAPIKeys.h"
 
 @implementation CIOJSONRequestSerializer
 
-- (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request withParameters:(id)parameters error:(NSError *__autoreleasing *)error
++ (instancetype)serializer
 {
-    static NSString *parseApplicationIdentifier = nil;
-    static NSString *parseRESTAPIKey = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"apiKeys" ofType:@"plist"];
-        NSDictionary *infoDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-        parseApplicationIdentifier = infoDictionary[@"PARSE_APPLICATION_ID"];
-        parseRESTAPIKey = infoDictionary[@"PARSE_REST_API_KEY"];
-    });
+    CIOJSONRequestSerializer *serializer = [super serializer];
+    [serializer setValue:ParseApplicationIdentifier forHTTPHeaderField:@"X-Parse-Application-Id"];
+    [serializer setValue:ParseRESTAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     
-    NSMutableURLRequest *mutableRequest = [[super requestBySerializingRequest:request withParameters:parameters error:error] mutableCopy];
-    [mutableRequest setValue:parseApplicationIdentifier forKey:@"X-Parse-Application-Id"];
-    [mutableRequest setValue:parseRESTAPIKey forKey:@"X-Parse-REST-API-Key"];
-    
-    return mutableRequest;
+    return serializer;
 }
 
 @end

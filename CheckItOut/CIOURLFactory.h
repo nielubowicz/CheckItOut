@@ -11,5 +11,7 @@
 @interface CIOURLFactory : NSObject
 
 + (NSURL *)userEndpoint;
++ (NSString *)userEndpointString;
++ (NSString *)loginEndpointString;
 
 @end

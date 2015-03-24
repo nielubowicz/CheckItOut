@@ -10,4 +10,16 @@
 
 @implementation CIOUser
 
+- (instancetype)initWithUsername:(NSString *)username withInfo:(NSDictionary *)userInfo;
+{
+    if (self = [super init]) {
+        
+        _objectID = userInfo[@"objectId"];
+        _sessionToken = userInfo[@"sessionToken"];
+        _userEmail = [username copy];
+        _username = [username copy];
+    }
+    return self;
+}
+
 @end

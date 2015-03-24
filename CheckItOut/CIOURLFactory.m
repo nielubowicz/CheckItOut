@@ -14,12 +14,48 @@ static NSString *const baseParseURL = @"https://api.parse.com";
 
 + (NSURL *)baseURL
 {
-    return [NSURL URLWithString:baseParseURL];
+    static NSURL *baseURL = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        baseURL = [NSURL URLWithString:baseParseURL];
+    });
+    
+    return baseURL;
 }
 
 + (NSURL *)userEndpoint
 {
-    return [NSURL URLWithString:@"1/users" relativeToURL:[CIOURLFactory baseURL]];
+    static NSURL *userEndpoint = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        userEndpoint = [NSURL URLWithString:@"1/users" relativeToURL:[CIOURLFactory baseURL]];
+    });
+    
+    return userEndpoint;
+}
+
++ (NSString *)userEndpointString
+{
+    return [[CIOURLFactory userEndpoint] absoluteString];
+}
+
++ (NSURL *)loginEndpoint
+{
+    static NSURL *loginEndpoint = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        loginEndpoint = [NSURL URLWithString:@"1/login" relativeToURL:[CIOURLFactory baseURL]];
+    });
+    
+    return loginEndpoint;
+}
+
++ (NSString *)loginEndpointString
+{
+    return [[CIOURLFactory loginEndpoint] absoluteString];
 }
 
 @end
