@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097951AC1A1CF005E739D /* CIOAPIKeys.m */; };
+		08D0979A1AC1B5C7005E739D /* CIOUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097991AC1B5C7005E739D /* CIOUserManager.m */; };
 		213253B4D9404A3A91CA19F1 /* libPods-CheckItOut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B27EEFB0E53642AF91F8F6EA /* libPods-CheckItOut.a */; };
 		8E25D6E01AC100D9006AABB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6DF1AC100D9006AABB1 /* Foundation.framework */; };
 		8E25D6E21AC100D9006AABB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6E11AC100D9006AABB1 /* CoreGraphics.framework */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		08D097941AC1A1CF005E739D /* CIOAPIKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAPIKeys.h; sourceTree = "<group>"; };
 		08D097951AC1A1CF005E739D /* CIOAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAPIKeys.m; sourceTree = "<group>"; };
+		08D097981AC1B5C7005E739D /* CIOUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOUserManager.h; sourceTree = "<group>"; };
+		08D097991AC1B5C7005E739D /* CIOUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOUserManager.m; sourceTree = "<group>"; };
 		7C16D53B8F5CA8956200C47C /* Pods-CheckItOut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckItOut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckItOut/Pods-CheckItOut.debug.xcconfig"; sourceTree = "<group>"; };
 		8E25D6DC1AC100D9006AABB1 /* CheckItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E25D6DF1AC100D9006AABB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -105,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08D097971AC1B5B8005E739D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				08D097981AC1B5C7005E739D /* CIOUserManager.h */,
+				08D097991AC1B5C7005E739D /* CIOUserManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		4CF9E759749E4B0B10563099 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +161,7 @@
 		8E25D6E51AC100D9006AABB1 /* CheckItOut */ = {
 			isa = PBXGroup;
 			children = (
+				08D097971AC1B5B8005E739D /* Managers */,
 				8EDB61D41AC12AC000A9A0E6 /* Categories */,
 				8EDB61D31AC12AB800A9A0E6 /* Models */,
 				8E25D71C1AC106A8006AABB1 /* Network Managers */,
@@ -366,6 +379,7 @@
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
 				8E25D6EC1AC100D9006AABB1 /* main.m in Sources */,
 				8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */,
+				08D0979A1AC1B5C7005E739D /* CIOUserManager.m in Sources */,
 				8EDB61DA1AC12AF500A9A0E6 /* CIOUser.m in Sources */,
 				8E25D7191AC10220006AABB1 /* ScanViewController.m in Sources */,
 				8E25D71F1AC1070E006AABB1 /* ParseNetworkManager.m in Sources */,

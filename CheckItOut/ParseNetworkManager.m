@@ -31,7 +31,7 @@
     return networkManager;
 }
 
-- (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password
+- (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
                                  @"username" : userEmail,
@@ -49,17 +49,19 @@
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
         // TODO: save session token for later use
-        
+        if (doneBlock) {
+            
+        }        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
-        
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
     }];
     
     [self.operationQueue addOperation:requestOperation];
 }
 
-- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password
+- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
                                  @"username" : userEmail,
@@ -76,12 +78,37 @@
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // TODO: save session token for later use
-        NSLog(@"%s %@", __PRETTY_FUNCTION__, responseObject);
-        
+        if (doneBlock) {
+            
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
+    }];
+    
+    [self.operationQueue addOperation:requestOperation];
+}
+
+- (void)retrieveUserForSessionToken:(NSString *)sessionToken done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
+{
+    NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
+                                                                                  URLString:[CIOURLFactory currentUserEndpointString]
+                                                                                 parameters:nil
+                                                                                      error:NULL];
+    [request setValue:sessionToken forHTTPHeaderField:@"X-Parse-Session-Token"];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
-        
+        if (doneBlock) {
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
     }];
     
     [self.operationQueue addOperation:requestOperation];

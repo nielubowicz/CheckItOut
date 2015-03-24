@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "ScanViewController.h"
+#import "ParseNetworkManager.h"
 
 @interface MainViewController ()
 
@@ -34,6 +35,7 @@
 
 - (IBAction)scanAction:(id)sender
 {
+    [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:@"cnielubowicz@mobiquityinc.com" password:@"junkpassword"];
     ScanViewController *scanViewController = [[ScanViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:scanViewController];
     
@@ -46,6 +48,7 @@
                          
                          scanViewController.view.frame = self.codeScanContainerView.bounds;
                          [self.codeScanContainerView addSubview:scanViewController.view];
+                         
                          
                      } completion:^(BOOL finished) {
                          

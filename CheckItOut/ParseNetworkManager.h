@@ -8,10 +8,17 @@
 
 #import "AFHTTPRequestOperationManager.h"
 
+@class CIOUser;
+
+typedef void (^CIONetworkUserLoginBlock)(CIOUser *user);
+typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
+
 @interface ParseNetworkManager : AFHTTPRequestOperationManager
 
 + (instancetype)sharedNetworkManager;
-- (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password;
-- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password;
+
+- (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
+- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
+- (void)retrieveUserForSessionToken:(NSString *)sessionToken done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 
 @end
