@@ -12,6 +12,8 @@
 #import "CIOURLFactory.h"
 #import "CIOParseConstants.h"
 #import "CIOUser.h"
+#import "CIODevice.h"
+#import "NSDictionary+User.h"
 
 @interface ParseNetworkManager ()
 
@@ -117,6 +119,48 @@
     }];
     
     [self.operationQueue addOperation:requestOperation];
+}
+
+#pragma mark - Device checkout
+- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user;
+{
+    NSMutableURLRequest *deviceStatusRequest = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                              URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
+                                                                                             parameters:nil
+                                                                                                  error:NULL];
+    
+    AFHTTPRequestOperation *deviceStatusRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:deviceStatusRequest];
+    deviceStatusRequestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [deviceStatusRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // TODO: check to see if device is current checked out
+        // TODO: or offer to check-in device
+        NSDictionary *userDictionary = [NSDictionary pointerObjectForUser:user];
+        NSDictionary *parameters = @{
+                                     kCIOParseDeviceCurrentOwnerKey : userDictionary
+                                     };
+        NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
+                                                                                      URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
+                                                                                     parameters:parameters
+                                                                                          error:NULL];
+        
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%s %@", __PRETTY_FUNCTION__, responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+        }];
+        
+        [self.operationQueue addOperation:requestOperation];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+    }];
+    
+    [self.operationQueue addOperation:deviceStatusRequestOperation];
 }
 
 @end

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CIOCheckoutPanelViewController">
+            <connections>
+                <outlet property="deviceLabel" destination="oA8-eB-6jd" id="ipJ-N3-Omd"/>
+                <outlet property="deviceModel" destination="5LQ-AE-ZhB" id="NQH-on-L67"/>
+                <outlet property="view" destination="Zpj-Hq-7MC" id="zwG-Pt-wci"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Zpj-Hq-7MC">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LQ-AE-ZhB">
+                    <rect key="frame" x="8" y="8" width="584" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="j5c-xH-CnO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA8-eB-6jd">
+                    <rect key="frame" x="8" y="48" width="584" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="k1i-u7-Uqe"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlZ-fP-B3a">
+                    <rect key="frame" x="504" y="548" width="88" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="88" id="fZB-Jc-xjY"/>
+                        <constraint firstAttribute="height" constant="44" id="gwQ-1v-XCm"/>
+                    </constraints>
+                    <state key="normal" title="Checkout">
+                        <color key="titleColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="checkoutAction:" destination="-1" eventType="touchUpInside" id="3cG-a5-rpQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMu-by-itN">
+                    <rect key="frame" x="8" y="548" width="88" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="88" id="adD-GB-hcc"/>
+                        <constraint firstAttribute="height" constant="44" id="srP-wO-u8q"/>
+                    </constraints>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.29019609089999998" green="0.32549020649999999" blue="0.36470589040000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="dcZ-xf-j8J"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="5LQ-AE-ZhB" firstAttribute="top" secondItem="Zpj-Hq-7MC" secondAttribute="top" constant="8" id="0U8-gF-hXQ"/>
+                <constraint firstItem="QMu-by-itN" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="9Iv-ek-Ray"/>
+                <constraint firstItem="oA8-eB-6jd" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="9db-CN-EbL"/>
+                <constraint firstAttribute="trailing" secondItem="5LQ-AE-ZhB" secondAttribute="trailing" constant="8" id="AXP-ZC-QBf"/>
+                <constraint firstAttribute="trailing" secondItem="oA8-eB-6jd" secondAttribute="trailing" constant="8" id="P9G-9e-SLr"/>
+                <constraint firstAttribute="bottom" secondItem="QMu-by-itN" secondAttribute="bottom" constant="8" id="PQa-CF-tJT"/>
+                <constraint firstAttribute="bottom" secondItem="HlZ-fP-B3a" secondAttribute="bottom" constant="8" id="Xx2-KP-iRp"/>
+                <constraint firstAttribute="trailing" secondItem="HlZ-fP-B3a" secondAttribute="trailing" constant="8" id="jaR-Xj-pqk"/>
+                <constraint firstItem="oA8-eB-6jd" firstAttribute="top" secondItem="5LQ-AE-ZhB" secondAttribute="bottom" constant="18" id="ki5-Sz-Ynw"/>
+                <constraint firstItem="5LQ-AE-ZhB" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="pXP-YH-ghD"/>
+            </constraints>
+            <point key="canvasLocation" x="475" y="-86"/>
+        </view>
+    </objects>
+</document>

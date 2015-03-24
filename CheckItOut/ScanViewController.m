@@ -8,6 +8,7 @@
 
 #import "ScanViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CIODevice.h"
 
 @interface ScanViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
@@ -78,9 +79,12 @@
             }
         }
         
-        if (detectionString != nil)
-        {
-            // TODO: handle the QR code detection
+        if (detectionString != nil) {
+
+            if ([self.delegate respondsToSelector:@selector(scannerViewController:didScanDevice:)]) {
+                CIODevice *device = [[CIODevice alloc] initWithDetectionString:detectionString];
+                [self.delegate scannerViewController:self didScanDevice:device];
+            }
             break;
         }
     }

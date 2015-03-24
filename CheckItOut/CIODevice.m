@@ -20,6 +20,8 @@
 
 @implementation CIODevice
 
+static const char *formatString = "Mobiquity Device System\nObjectID:%s\nDeviceIdentifier:%s\nDeviceLabel:%s";
+
 - (instancetype)initWithDictionary:(NSDictionary *)deviceInfo
 {
     if (self = [super init]) {
@@ -33,9 +35,46 @@
     return self;
 }
 
+- (instancetype)initWithDetectionString:(NSString *)detectionString
+{
+    NSDictionary *deviceInfo = [CIODevice dictionaryFromDetectionString:detectionString];
+    return [self initWithDictionary:deviceInfo];
+}
+
 - (BOOL)isCheckedOut
 {
     return self.currentOwner != nil;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@: (objectId:%@, deviceID:%@) Model:%@ - Label:%@", NSStringFromClass([self class]), self.objectID, self.deviceIdentifier, self.deviceModel, self.deviceLabel];
+}
+
++ (NSDictionary *)dictionaryFromDetectionString:(NSString *)detectionString
+{
+    NSScanner *scanner = [NSScanner scannerWithString:detectionString];
+    [scanner scanUpToString:@"\n" intoString:NULL];
+    [scanner scanUpToString:@":" intoString:NULL];
+    [scanner setScanLocation:scanner.scanLocation + 1];
+    NSString *deviceObjectID;
+    [scanner scanUpToString:@"\n" intoString:&deviceObjectID];
+    [scanner scanUpToString:@":" intoString:NULL];
+    [scanner setScanLocation:scanner.scanLocation + 1];
+    NSString *deviceIdentifier;
+    [scanner scanUpToString:@"\n" intoString:&deviceIdentifier];
+    [scanner scanUpToString:@":" intoString:NULL];
+    [scanner setScanLocation:scanner.scanLocation + 1];
+    NSString *deviceLabel;
+    [scanner scanUpToString:@"\n" intoString:&deviceLabel];
+    
+    
+    NSDictionary *deviceInfo = @{
+                                 kCIOParseObjectIDKey : deviceObjectID,
+                                 kCIOParseDeviceIdentifierKey : deviceIdentifier,
+                                 kCIOParseDeviceLabelKey :deviceLabel,
+                                 };
+    return deviceInfo;
 }
 
 @end

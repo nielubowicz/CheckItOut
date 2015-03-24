@@ -20,4 +20,7 @@
 
 @property (assign, nonatomic, readonly) BOOL isCheckedOut;
 
+- (instancetype)initWithDictionary:(NSDictionary *)deviceInfo;
+- (instancetype)initWithDetectionString:(NSString *)detectionString;
+
 @end

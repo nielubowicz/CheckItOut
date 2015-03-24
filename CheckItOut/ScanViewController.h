@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class CIODevice;
+
+@protocol QRScannerDelegate;
+
 @interface ScanViewController : UIViewController
+
+@property (weak, nonatomic) id<QRScannerDelegate> delegate;
+
+@end
+
+@protocol QRScannerDelegate <NSObject>
+
+- (void)scannerViewController:(ScanViewController *)scannerViewController didScanDevice:(CIODevice *)device;
 
 @end

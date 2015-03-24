@@ -9,6 +9,7 @@
 #import "AFHTTPRequestOperationManager.h"
 
 @class CIOUser;
+@class CIODevice;
 
 typedef void (^CIONetworkUserLoginBlock)(CIOUser *user);
 typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
@@ -20,5 +21,7 @@ typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 - (void)retrieveUserForSessionToken:(NSString *)sessionToken done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
+
+- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user;
 
 @end

@@ -13,5 +13,7 @@
 + (NSString *)userEndpointString;
 + (NSString *)loginEndpointString;
 + (NSString *)currentUserEndpointString;
++ (NSString *)deviceEndpointString;
++ (NSString *)deviceEndpointStringForObjectIdentifier:(NSString *)objectIdentifier;
 
 @end

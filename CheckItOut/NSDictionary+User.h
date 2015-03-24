@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class CIOUser;
+
 @interface NSDictionary (User)
+
++ (NSDictionary *)pointerObjectForUser:(CIOUser *)user;
 
 @end

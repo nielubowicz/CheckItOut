@@ -8,12 +8,14 @@
 
 #import "MainViewController.h"
 #import "ScanViewController.h"
+#import "CIOCheckoutPanelViewController.h"
 #import "CIOUserManager.h"
 #import "CIOUser.h"
 
-@interface MainViewController ()
+@interface MainViewController () <QRScannerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *codeScanContainerView;
+@property (weak, nonatomic) IBOutlet UIView *checkoutPanelContainerView;
 @property (weak, nonatomic) IBOutlet UIView *userPanelView;
 @property (weak, nonatomic) IBOutlet UILabel *currentUserLabel;
 
@@ -41,6 +43,7 @@
     }];
 }
 
+#pragma mark - IBActions
 - (IBAction)scanAction:(id)sender
 {
     ScanViewController *scanViewController = [[ScanViewController alloc] initWithNibName:nil bundle:nil];
@@ -59,6 +62,7 @@
                          
                      } completion:^(BOOL finished) {
                          
+                         scanViewController.delegate = self;
                          [scanViewController didMoveToParentViewController:self];
                      }];
 }
@@ -88,6 +92,30 @@
                                            __strong typeof(self)strongSelf = weakSelf;
                                            strongSelf.currentUserLabel.text = user.userEmail;
                                        }];
+}
+
+#pragma mark - QRScannerDelegate
+- (void)scannerViewController:(ScanViewController *)scannerViewController didScanDevice:(CIODevice *)device
+{
+    CIOCheckoutPanelViewController *checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithNibName:@"CheckoutPanelView" bundle:nil];
+    [self addChildViewController:checkoutPanelViewController];
+    
+    [UIView animateWithDuration:2.5
+                          delay:0.f
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:10
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         
+                         checkoutPanelViewController.view.frame = self.codeScanContainerView.bounds;
+                         [self.checkoutPanelContainerView addSubview:checkoutPanelViewController.view];
+                         [self.view bringSubviewToFront:self.checkoutPanelContainerView];
+                         
+                     } completion:^(BOOL finished) {
+                          // TODO: create CIODevice from detectionString
+                         checkoutPanelViewController.currentDevice = device;
+                         [checkoutPanelViewController didMoveToParentViewController:self];
+                     }];
 }
 
 @end

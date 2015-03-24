@@ -71,4 +71,31 @@ static NSString *const baseParseURL = @"https://api.parse.com";
     return [[CIOURLFactory currentUserEndpoint] absoluteString];
 }
 
++ (NSURL *)deviceEndpoint
+{
+    static NSURL *deviceEndpoint = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        deviceEndpoint = [NSURL URLWithString:@"1/classes/Device" relativeToURL:[CIOURLFactory baseURL]];
+    });
+    
+    return deviceEndpoint;
+}
+
++ (NSString *)deviceEndpointString
+{
+    return [[CIOURLFactory deviceEndpoint] absoluteString];
+}
+
++ (NSURL *)deviceEndpointForObjectIdentifier:(NSString *)objectIdentifier
+{
+    NSURL *specificDeviceEndpoint = [NSURL URLWithString:objectIdentifier relativeToURL:[CIOURLFactory deviceEndpoint]];
+    return specificDeviceEndpoint;
+}
+
++ (NSString *)deviceEndpointStringForObjectIdentifier:(NSString *)objectIdentifier;
+{
+    return [[CIOURLFactory deviceEndpointForObjectIdentifier:objectIdentifier] absoluteString];
+}
+
 @end
