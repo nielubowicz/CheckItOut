@@ -8,14 +8,15 @@
 
 #import "CIOJSONRequestSerializer.h"
 #import "CIOAPIKeys.h"
+#import "CIOParseConstants.h"
 
 @implementation CIOJSONRequestSerializer
 
 + (instancetype)serializer
 {
     CIOJSONRequestSerializer *serializer = [super serializer];
-    [serializer setValue:ParseApplicationIdentifier forHTTPHeaderField:@"X-Parse-Application-Id"];
-    [serializer setValue:ParseRESTAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
+    [serializer setValue:ParseApplicationIdentifier forHTTPHeaderField:kCIOParseApplicationIDHeader];
+    [serializer setValue:ParseRESTAPIKey forHTTPHeaderField:kCIOParseRESTAPIKeyHeader];
     
     return serializer;
 }

@@ -7,17 +7,22 @@
 //
 
 #import "CIOUser.h"
+#import "CIOParseConstants.h"
 
 @implementation CIOUser
 
 - (instancetype)initWithUsername:(NSString *)username withInfo:(NSDictionary *)userInfo;
 {
     if (self = [super init]) {
-        
-        _objectID = userInfo[@"objectId"];
-        _sessionToken = userInfo[@"sessionToken"];
-        _userEmail = [username copy];
-        _username = [username copy];
+        _objectID = userInfo[kCIOParseObjectIDKey];
+        _sessionToken = userInfo[kCIOParseUserSessionToken];
+        if (username == nil) {
+            _username = userInfo[kCIOParseUserUsername];
+            _userEmail = userInfo[kCIOParseUserEmail];
+        } else {
+            _userEmail = [username copy];
+            _username = [username copy];
+        }
     }
     return self;
 }

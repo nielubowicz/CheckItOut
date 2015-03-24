@@ -12,6 +12,8 @@
 
 @implementation CIOUserManager
 
+NSString *const defaultPassword = @"junkpassword";
+
 + (instancetype)sharedUserManager
 {
     static CIOUserManager *sharedManager = nil;
@@ -22,29 +24,38 @@
     return sharedManager;
 }
 
-- (void)loginUser:(CIOUser *)user password:(NSString *)password
+- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(void(^)(CIOUser *user))completionBlock;
 {
     [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:user.userEmail
                                                           password:password
                                                               done:^(CIOUser *user) {
                                                                   
-                                                                  // TODO: save session token
                                                                   [[NSUserDefaults standardUserDefaults] setValue:user.sessionToken forKey:@"SessionToken"];
-                                                                  
+                                                                  if (completionBlock) {
+                                                                      completionBlock(user);
+                                                                  }
                                                               } failure:^(NSURLRequest *request, NSError *error) {
                                                                   
                                                                   [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SessionToken"];
+                                                                  if (completionBlock) {
+                                                                      completionBlock(nil);
+                                                                  }
                                                               }];
 }
 
-- (void)retrieveUserForSessionToken:(NSString *)sessionToken
+- (void)retrieveUserForSessionToken:(NSString *)sessionToken completion:(void(^)(CIOUser *user))completionBlock;
 {
     [[ParseNetworkManager sharedNetworkManager] retrieveUserForSessionToken:sessionToken
                                                                        done:^(CIOUser *user) {
-                                                                           
+                                                                           if (completionBlock) {
+                                                                               completionBlock(user);
+                                                                           }
                                                                        } failure:^(NSURLRequest *request, NSError *error) {
                                                                            
                                                                            [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SessionToken"];
+                                                                           if (completionBlock) {
+                                                                               completionBlock(nil);
+                                                                           }
                                                                        }];
 }
 

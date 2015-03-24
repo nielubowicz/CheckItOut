@@ -8,7 +8,8 @@
 
 #import "MainViewController.h"
 #import "ScanViewController.h"
-#import "ParseNetworkManager.h"
+#import "CIOUserManager.h"
+#import "CIOUser.h"
 
 @interface MainViewController ()
 
@@ -35,7 +36,14 @@
 
 - (IBAction)scanAction:(id)sender
 {
-    [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:@"cnielubowicz@mobiquityinc.com" password:@"junkpassword"];
+    CIOUser *user = [[CIOUser alloc] init];
+    user.username = @"cnielubowicz@mobiquityinc.com";
+    [[CIOUserManager sharedUserManager] loginUser:user
+                                         password:defaultPassword
+                                       completion:^(CIOUser *user) {
+                                           
+                                       }];
+    
     ScanViewController *scanViewController = [[ScanViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:scanViewController];
     

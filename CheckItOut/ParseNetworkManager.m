@@ -10,7 +10,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "CIOJSONRequestSerializer.h"
 #import "CIOURLFactory.h"
-
+#import "CIOParseConstants.h"
+#import "CIOUser.h"
 
 @interface ParseNetworkManager ()
 
@@ -34,9 +35,9 @@
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
-                                 @"username" : userEmail,
-                                 @"email" : userEmail,
-                                 @"password" : password
+                                 kCIOParseUserUsername : userEmail,
+                                 kCIOParseUserEmail : userEmail,
+                                 kCIOParseUserPassword : password
                                  };
     
     NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
@@ -48,10 +49,10 @@
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-        // TODO: save session token for later use
+        CIOUser *user = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject];
         if (doneBlock) {
-            
-        }        
+            doneBlock(user);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failureBlock) {
             failureBlock(operation.request, error);
@@ -64,8 +65,8 @@
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
-                                 @"username" : userEmail,
-                                 @"password" : password
+                                 kCIOParseUserEmail : userEmail,
+                                 kCIOParseUserPassword : password
                                  };
     
     NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
@@ -77,9 +78,9 @@
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        // TODO: save session token for later use
+        CIOUser *user = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject];
         if (doneBlock) {
-            
+            doneBlock(user);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failureBlock) {
@@ -92,18 +93,19 @@
 
 - (void)retrieveUserForSessionToken:(NSString *)sessionToken done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
-    NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
+    NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
                                                                                   URLString:[CIOURLFactory currentUserEndpointString]
                                                                                  parameters:nil
                                                                                       error:NULL];
-    [request setValue:sessionToken forHTTPHeaderField:@"X-Parse-Session-Token"];
+    [request setValue:sessionToken forHTTPHeaderField:kCIOParseSessionTokenHeader];
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        CIOUser *user = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject];
         if (doneBlock) {
-            
+            doneBlock(user);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failureBlock) {

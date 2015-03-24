@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class CIOUser;
+
 @interface CIOUserManager : NSObject
 
+FOUNDATION_EXPORT NSString *const defaultPassword;
+
 + (instancetype)sharedUserManager;
+
+- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(void(^)(CIOUser *user))completionBlock;
+- (void)retrieveUserForSessionToken:(NSString *)sessionToken completion:(void(^)(CIOUser *user))completionBlock;
 
 @end

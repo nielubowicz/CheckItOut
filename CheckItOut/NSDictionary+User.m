@@ -7,6 +7,7 @@
 //
 
 #import "NSDictionary+User.h"
+#import "CIOParseConstants.h"
 #import "CIOUser.h"
 
 @implementation NSDictionary (User)
@@ -14,9 +15,9 @@
 + (NSDictionary *)pointerObjectForUser:(CIOUser *)user
 {
     NSDictionary *pointer = @{
-                              @"__type" : @"Pointer",
-                              @"className" : @"_User",
-                              @"objectId" : [user objectID]
+                              kCIOParseTypeKey : kCIOParsePointerType,
+                              kCIOParseClassNameKey : kCIOParseClassUser,
+                              kCIOParseObjectIDKey : [user objectID]
                               };
     return pointer;
 }
