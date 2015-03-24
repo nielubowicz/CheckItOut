@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097951AC1A1CF005E739D /* CIOAPIKeys.m */; };
 		213253B4D9404A3A91CA19F1 /* libPods-CheckItOut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B27EEFB0E53642AF91F8F6EA /* libPods-CheckItOut.a */; };
 		8E25D6E01AC100D9006AABB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6DF1AC100D9006AABB1 /* Foundation.framework */; };
 		8E25D6E21AC100D9006AABB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6E11AC100D9006AABB1 /* CoreGraphics.framework */; };
@@ -23,7 +24,6 @@
 		8E25D70C1AC100DA006AABB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D70A1AC100DA006AABB1 /* InfoPlist.strings */; };
 		8E25D70E1AC100DA006AABB1 /* CheckItOutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D70D1AC100DA006AABB1 /* CheckItOutTests.m */; };
 		8E25D7191AC10220006AABB1 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7181AC10220006AABB1 /* ScanViewController.m */; };
-		8E25D71B1AC103D7006AABB1 /* apiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E25D71A1AC103D7006AABB1 /* apiKeys.plist */; };
 		8E25D71F1AC1070E006AABB1 /* ParseNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D71E1AC1070E006AABB1 /* ParseNetworkManager.m */; };
 		8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7211AC10905006AABB1 /* CIOURLFactory.m */; };
 		8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */; };
@@ -42,7 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		220AB42C888B411ABF3386AA /* Pods-CheckItOut.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckItOut.xcconfig"; path = "Pods/Pods-CheckItOut.xcconfig"; sourceTree = "<group>"; };
+		08D097941AC1A1CF005E739D /* CIOAPIKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAPIKeys.h; sourceTree = "<group>"; };
+		08D097951AC1A1CF005E739D /* CIOAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAPIKeys.m; sourceTree = "<group>"; };
+		7C16D53B8F5CA8956200C47C /* Pods-CheckItOut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckItOut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckItOut/Pods-CheckItOut.debug.xcconfig"; sourceTree = "<group>"; };
 		8E25D6DC1AC100D9006AABB1 /* CheckItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E25D6DF1AC100D9006AABB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E25D6E11AC100D9006AABB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,7 +66,6 @@
 		8E25D70D1AC100DA006AABB1 /* CheckItOutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckItOutTests.m; sourceTree = "<group>"; };
 		8E25D7171AC10220006AABB1 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		8E25D7181AC10220006AABB1 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
-		8E25D71A1AC103D7006AABB1 /* apiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = apiKeys.plist; sourceTree = "<group>"; };
 		8E25D71D1AC1070E006AABB1 /* ParseNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseNetworkManager.h; sourceTree = "<group>"; };
 		8E25D71E1AC1070E006AABB1 /* ParseNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseNetworkManager.m; sourceTree = "<group>"; };
 		8E25D7201AC10905006AABB1 /* CIOURLFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOURLFactory.h; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		8EDB61D81AC12AF500A9A0E6 /* CIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOUser.h; sourceTree = "<group>"; };
 		8EDB61D91AC12AF500A9A0E6 /* CIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOUser.m; sourceTree = "<group>"; };
 		B27EEFB0E53642AF91F8F6EA /* libPods-CheckItOut.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckItOut.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3276DAC49DEDC90E35A46EC /* Pods-CheckItOut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckItOut.release.xcconfig"; path = "Pods/Target Support Files/Pods-CheckItOut/Pods-CheckItOut.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CF9E759749E4B0B10563099 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C16D53B8F5CA8956200C47C /* Pods-CheckItOut.debug.xcconfig */,
+				D3276DAC49DEDC90E35A46EC /* Pods-CheckItOut.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8E25D6D31AC100D9006AABB1 = {
 			isa = PBXGroup;
 			children = (
@@ -110,7 +121,7 @@
 				8E25D7071AC100DA006AABB1 /* CheckItOutTests */,
 				8E25D6DE1AC100D9006AABB1 /* Frameworks */,
 				8E25D6DD1AC100D9006AABB1 /* Products */,
-				220AB42C888B411ABF3386AA /* Pods-CheckItOut.xcconfig */,
+				4CF9E759749E4B0B10563099 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,11 +168,12 @@
 		8E25D6E61AC100D9006AABB1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8E25D71A1AC103D7006AABB1 /* apiKeys.plist */,
 				8E25D6E71AC100D9006AABB1 /* CheckItOut-Info.plist */,
 				8E25D6E81AC100D9006AABB1 /* InfoPlist.strings */,
 				8E25D6EB1AC100D9006AABB1 /* main.m */,
 				8E25D6ED1AC100D9006AABB1 /* CheckItOut-Prefix.pch */,
+				08D097941AC1A1CF005E739D /* CIOAPIKeys.h */,
+				08D097951AC1A1CF005E739D /* CIOAPIKeys.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -295,7 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E25D6FB1AC100DA006AABB1 /* Images.xcassets in Resources */,
-				8E25D71B1AC103D7006AABB1 /* apiKeys.plist in Resources */,
 				8E25D6F31AC100DA006AABB1 /* Main_iPhone.storyboard in Resources */,
 				8E25D6EA1AC100D9006AABB1 /* InfoPlist.strings in Resources */,
 			);
@@ -339,7 +350,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-CheckItOut-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CheckItOut/Pods-CheckItOut-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -349,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */,
 				8E25D6F91AC100DA006AABB1 /* MainViewController.m in Sources */,
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
@@ -481,7 +493,7 @@
 		};
 		8E25D7121AC100DA006AABB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 220AB42C888B411ABF3386AA /* Pods-CheckItOut.xcconfig */;
+			baseConfigurationReference = 7C16D53B8F5CA8956200C47C /* Pods-CheckItOut.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -495,7 +507,7 @@
 		};
 		8E25D7131AC100DA006AABB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 220AB42C888B411ABF3386AA /* Pods-CheckItOut.xcconfig */;
+			baseConfigurationReference = D3276DAC49DEDC90E35A46EC /* Pods-CheckItOut.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
