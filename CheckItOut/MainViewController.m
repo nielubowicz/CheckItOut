@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *codeScanContainerView;
 @property (weak, nonatomic) IBOutlet UIView *userPanelView;
+@property (weak, nonatomic) IBOutlet UILabel *currentUserLabel;
 
 @end
 
@@ -28,22 +29,20 @@
     self.userPanelView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.75];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    
+    __weak typeof(self) weakSelf = self;
+    [[CIOUserManager sharedUserManager] retrieveLoggedInUserWithCompletion:^(CIOUser *user) {
+        
+        __strong typeof(self)strongSelf = weakSelf;
+        strongSelf.currentUserLabel.text = user.userEmail;
+    }];
 }
 
 - (IBAction)scanAction:(id)sender
 {
-    CIOUser *user = [[CIOUser alloc] init];
-    user.username = @"cnielubowicz@mobiquityinc.com";
-    [[CIOUserManager sharedUserManager] loginUser:user
-                                         password:defaultPassword
-                                       completion:^(CIOUser *user) {
-                                           
-                                       }];
-    
     ScanViewController *scanViewController = [[ScanViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:scanViewController];
     
@@ -62,6 +61,33 @@
                          
                          [scanViewController didMoveToParentViewController:self];
                      }];
+}
+- (IBAction)registerAction:(id)sender
+{
+    __weak typeof(self) weakSelf = self;
+    [[CIOUserManager sharedUserManager] createUserWithEmail:@"cnielubowicz@mobiquityinc.com"
+                                                   password:defaultPassword
+                                                 completion:^(CIOUser *user) {
+                                                     
+                                                     __strong typeof(self)strongSelf = weakSelf;
+                                                     strongSelf.currentUserLabel.text = user.userEmail;
+                                                 }];
+}
+
+- (IBAction)loginAction:(id)sender
+{
+    CIOUser *user = [[CIOUser alloc] init];
+    user.username = @"cnielubowicz@mobiquityinc.com";
+    user.userEmail = user.username;
+    
+    __weak typeof(self) weakSelf = self;
+    [[CIOUserManager sharedUserManager] loginUser:user
+                                         password:defaultPassword
+                                       completion:^(CIOUser *user) {
+                                           
+                                           __strong typeof(self)strongSelf = weakSelf;
+                                           strongSelf.currentUserLabel.text = user.userEmail;
+                                       }];
 }
 
 @end

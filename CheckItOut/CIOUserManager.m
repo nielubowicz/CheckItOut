@@ -10,9 +10,15 @@
 #import "ParseNetworkManager.h"
 #import "CIOUser.h"
 
-@implementation CIOUserManager
-
 NSString *const defaultPassword = @"junkpassword";
+
+@interface CIOUserManager ()
+
+@property (strong, nonatomic, readwrite) CIOUser *currentUser;
+
+@end
+
+@implementation CIOUserManager
 
 + (instancetype)sharedUserManager
 {
@@ -24,39 +30,89 @@ NSString *const defaultPassword = @"junkpassword";
     return sharedManager;
 }
 
-- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(void(^)(CIOUser *user))completionBlock;
+- (void)setSessionToken:(NSString *)sessionToken
 {
+    [[NSUserDefaults standardUserDefaults] setValue:sessionToken forKey:@"SessionToken"];
+}
+
+- (void)setCurrentUser:(CIOUser *)currentUser
+{
+    _currentUser = currentUser;
+    [self setSessionToken:_currentUser.sessionToken];
+}
+
+- (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
+{
+    __weak typeof(self) weakSelf = self;
+    [[ParseNetworkManager sharedNetworkManager] createUserWithEmail:userEmail
+                                                           password:password
+                                                               done:^(CIOUser *user) {
+                                                                   
+                                                                   __strong typeof(self)strongSelf = weakSelf;
+                                                                   user.userEmail = userEmail;
+                                                                   user.username = userEmail;
+                                                                   strongSelf.currentUser = user;
+                                                                   if (completionBlock) {
+                                                                       completionBlock(user);
+                                                                   }
+                                                               } failure:^(NSURLRequest *request, NSError *error) {
+
+                                                                   __strong typeof(self)strongSelf = weakSelf;
+                                                                   strongSelf.currentUser = nil;
+                                                                   if (completionBlock) {
+                                                                       completionBlock(nil);
+                                                                   }
+                                                               }];
+}
+
+- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
+{
+    __weak typeof(self) weakSelf = self;
     [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:user.userEmail
                                                           password:password
                                                               done:^(CIOUser *user) {
                                                                   
-                                                                  [[NSUserDefaults standardUserDefaults] setValue:user.sessionToken forKey:@"SessionToken"];
+                                                                  __strong typeof(self)strongSelf = weakSelf;
+                                                                  strongSelf.currentUser = user;
                                                                   if (completionBlock) {
                                                                       completionBlock(user);
                                                                   }
                                                               } failure:^(NSURLRequest *request, NSError *error) {
-                                                                  
-                                                                  [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SessionToken"];
+
+                                                                  __strong typeof(self)strongSelf = weakSelf;
+                                                                  strongSelf.currentUser = nil;
                                                                   if (completionBlock) {
                                                                       completionBlock(nil);
                                                                   }
                                                               }];
 }
 
-- (void)retrieveUserForSessionToken:(NSString *)sessionToken completion:(void(^)(CIOUser *user))completionBlock;
+- (void)retrieveLoggedInUserWithCompletion:(CIOUserManagerCompletionBlock)completionBlock;
 {
-    [[ParseNetworkManager sharedNetworkManager] retrieveUserForSessionToken:sessionToken
-                                                                       done:^(CIOUser *user) {
-                                                                           if (completionBlock) {
-                                                                               completionBlock(user);
-                                                                           }
-                                                                       } failure:^(NSURLRequest *request, NSError *error) {
-                                                                           
-                                                                           [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SessionToken"];
-                                                                           if (completionBlock) {
-                                                                               completionBlock(nil);
-                                                                           }
-                                                                       }];
+    NSString *sessionToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"SessionToken"];
+    if (sessionToken != nil) {
+        __weak typeof(self) weakSelf = self;
+        [[ParseNetworkManager sharedNetworkManager] retrieveUserForSessionToken:sessionToken
+                                                                           done:^(CIOUser *user) {
+                                                                               
+                                                                               __strong typeof(self)strongSelf = weakSelf;
+                                                                               strongSelf.currentUser = user;
+                                                                               if (completionBlock) {
+                                                                                   completionBlock(user);
+                                                                               }
+                                                                           } failure:^(NSURLRequest *request, NSError *error) {
+                                                                               
+                                                                               __strong typeof(self)strongSelf = weakSelf;
+                                                                               strongSelf.currentUser = nil;
+                                                                               if (completionBlock) {
+                                                                                   completionBlock(nil);
+                                                                               }
+                                                                           }];
+    } else {
+        if (completionBlock) {
+            completionBlock(nil);
+        }
+    }
 }
 
 @end

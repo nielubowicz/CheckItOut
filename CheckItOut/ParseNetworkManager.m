@@ -32,6 +32,8 @@
     return networkManager;
 }
 
+#pragma mark - User Creation and Login
+
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
@@ -65,6 +67,7 @@
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
+                                 kCIOParseUserUsername : userEmail,
                                  kCIOParseUserEmail : userEmail,
                                  kCIOParseUserPassword : password
                                  };

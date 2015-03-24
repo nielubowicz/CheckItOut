@@ -27,4 +27,9 @@
     return self;
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@: email:%@", NSStringFromClass([self class]), self.userEmail];
+}
+
 @end

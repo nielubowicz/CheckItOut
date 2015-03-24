@@ -60,7 +60,7 @@ static NSString *const baseParseURL = @"https://api.parse.com";
     static NSURL *currentUserEndpoint = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        currentUserEndpoint = [NSURL URLWithString:@"me" relativeToURL:[CIOURLFactory userEndpoint]];
+        currentUserEndpoint = [NSURL URLWithString:@"1/users/me" relativeToURL:[CIOURLFactory baseURL]];
     });
     
     return currentUserEndpoint;
