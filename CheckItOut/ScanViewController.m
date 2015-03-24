@@ -10,15 +10,14 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface ScanViewController () <AVCaptureMetadataOutputObjectsDelegate>
-{
-    AVCaptureSession *_session;
-    AVCaptureDevice *_device;
-    AVCaptureDeviceInput *_input;
-    AVCaptureMetadataOutput *_output;
-    AVCaptureVideoPreviewLayer *_prevLayer;
-    
-    UIView *_highlightView;
-}
+
+@property (strong,nonatomic) AVCaptureSession *session;
+@property (strong,nonatomic) AVCaptureDevice *device;
+@property (strong,nonatomic) AVCaptureDeviceInput *input;
+@property (strong,nonatomic) AVCaptureMetadataOutput *output;
+@property (strong,nonatomic) AVCaptureVideoPreviewLayer *prevLayer;
+@property (strong,nonatomic) UIView *highlightView;
+
 @end
 
 @implementation ScanViewController
@@ -26,44 +25,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    _highlightView = [[UIView alloc] init];
-    _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
-    _highlightView.layer.borderColor = [UIColor greenColor].CGColor;
-    _highlightView.layer.borderWidth = 3;
-    [self.view addSubview:_highlightView];
+
+    self.highlightView = [[UIView alloc] init];
+    self.highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+    // TODO: translate to auto-layout
+    self.highlightView.layer.borderColor = [UIColor greenColor].CGColor;
+    self.highlightView.layer.borderWidth = 3;
+    [self.view addSubview:self.highlightView];
     
-    _session = [[AVCaptureSession alloc] init];
-    _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    self.session = [[AVCaptureSession alloc] init];
+    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error = nil;
     
-    _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];
-    if (_input) {
-        [_session addInput:_input];
+    self.input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
+    if (self.input) {
+        [self.session addInput:self.input];
     } else {
         NSLog(@"Error: %@", error);
     }
     
-    _output = [[AVCaptureMetadataOutput alloc] init];
-    [_session addOutput:_output];
+    self.output = [[AVCaptureMetadataOutput alloc] init];
+    [self.session addOutput:self.output];
     
-    [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    [_output setMetadataObjectTypes:[_output availableMetadataObjectTypes]];
+    [self.output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    [self.output setMetadataObjectTypes:[self.output availableMetadataObjectTypes]];
     
-    _prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    _prevLayer.frame = self.view.bounds;
-    _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [self.view.layer addSublayer:_prevLayer];
+    self.prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+    self.prevLayer.frame = self.view.bounds;
+    self.prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self.view.layer addSublayer:self.prevLayer];
     
-    [_session startRunning];
+    [self.session startRunning];
     
-    [self.view bringSubviewToFront:_highlightView];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.view bringSubviewToFront:self.highlightView];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -77,7 +71,7 @@
         for (NSString *type in barCodeTypes) {
             if ([metadata.type isEqualToString:type])
             {
-                barCodeObject = (AVMetadataMachineReadableCodeObject *)[_prevLayer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
+                barCodeObject = (AVMetadataMachineReadableCodeObject *)[self.prevLayer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
                 highlightViewRect = barCodeObject.bounds;
                 detectionString = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
                 break;
@@ -86,13 +80,12 @@
         
         if (detectionString != nil)
         {
-
+            // TODO: handle the QR code detection
             break;
         }
-        
     }
     
-    _highlightView.frame = highlightViewRect;
+    self.highlightView.frame = highlightViewRect;
 }
 
 @end
