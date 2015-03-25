@@ -32,6 +32,7 @@
 		8E25D71F1AC1070E006AABB1 /* ParseNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D71E1AC1070E006AABB1 /* ParseNetworkManager.m */; };
 		8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7211AC10905006AABB1 /* CIOURLFactory.m */; };
 		8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */; };
+		8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */; };
 		8EDB61D71AC12AE700A9A0E6 /* NSDictionary+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */; };
 		8EDB61DA1AC12AF500A9A0E6 /* CIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D91AC12AF500A9A0E6 /* CIOUser.m */; };
 /* End PBXBuildFile section */
@@ -86,6 +87,8 @@
 		8E25D7211AC10905006AABB1 /* CIOURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOURLFactory.m; sourceTree = "<group>"; };
 		8E25D7231AC10FF3006AABB1 /* CIOJSONRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOJSONRequestSerializer.h; sourceTree = "<group>"; };
 		8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOJSONRequestSerializer.m; sourceTree = "<group>"; };
+		8E934C5C1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAvailableDevicesTableViewController.h; sourceTree = "<group>"; };
+		8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAvailableDevicesTableViewController.m; sourceTree = "<group>"; };
 		8EDB61D51AC12AE700A9A0E6 /* NSDictionary+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+User.h"; sourceTree = "<group>"; };
 		8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+User.m"; sourceTree = "<group>"; };
 		8EDB61D81AC12AF500A9A0E6 /* CIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOUser.h; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				8E25D7181AC10220006AABB1 /* ScanViewController.m */,
 				08D097A31AC1F094005E739D /* CIOCheckoutPanelViewController.h */,
 				08D097A41AC1F094005E739D /* CIOCheckoutPanelViewController.m */,
+				8E934C5C1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.h */,
+				8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
 				8E25D6EC1AC100D9006AABB1 /* main.m in Sources */,
+				8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */,
 				8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */,
 				08D0979A1AC1B5C7005E739D /* CIOUserManager.m in Sources */,
 				08D097A11AC1BBB6005E739D /* CIOParseConstants.m in Sources */,

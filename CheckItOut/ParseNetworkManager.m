@@ -157,6 +157,7 @@
             requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
             
             [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                returnedDevice.currentOwner = user;
                 if (doneBlock) {
                     doneBlock(returnedDevice);
                 }
@@ -200,9 +201,15 @@
                 [self.operationQueue addOperation:requestOperation];
 
             } else {
-                NSDictionary *parameters = @{
+                
+                NSDictionary *innerQuery = @{
                                              kCIOParseObjectIDKey : returnedDevice.currentOwner.objectID
                                              };
+                NSData *JSONData = [NSJSONSerialization dataWithJSONObject:innerQuery options:NSJSONWritingPrettyPrinted error:NULL];
+                NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+                
+                NSDictionary *parameters = @{ @"where" : JSONString };
+                
                 NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
                                                                                               URLString:[CIOURLFactory userEndpointString]
                                                                                              parameters:parameters
@@ -213,7 +220,8 @@
                 
                 [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    CIOUser *currentOwner = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject[@"results"]];
+                    NSDictionary *userInfo = [responseObject[@"results"] firstObject];
+                    CIOUser *currentOwner = [[CIOUser alloc] initWithUsername:nil withInfo:userInfo];
                     NSLog(@"Device: %@ is checked out. You should go bother %@ to get the device", returnedDevice, currentOwner);
                     
                     if (inUseBlock) {
@@ -236,6 +244,44 @@
         }
     }];
     
+    [self.operationQueue addOperation:deviceStatusRequestOperation];
+}
+
+#pragma mark - Devices list
+- (void)fetchListOfAvailableDevicesWithDone:(CIONetworkDevicesAvailableBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock
+{
+    
+    NSDictionary *innerQuery = @{ kCIOParseDeviceIsCheckedOutKey : @(NO) };
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:innerQuery options:NSJSONWritingPrettyPrinted error:NULL];    
+    NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *parameters = @{ @"where" : JSONString };
+    
+    NSMutableURLRequest *deviceStatusRequest = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                              URLString:[CIOURLFactory deviceEndpointString]
+                                                                                             parameters:parameters
+                                                                                                  error:NULL];
+    
+    AFHTTPRequestOperation *deviceStatusRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:deviceStatusRequest];
+    deviceStatusRequestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [deviceStatusRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+        if (doneBlock) {
+            NSMutableArray *devices = [NSMutableArray array];
+            for (NSDictionary *deviceResponse in responseObject[@"results"]) {
+                CIODevice *device = [[CIODevice alloc] initWithDictionary:deviceResponse];
+                [devices addObject:device];
+            }
+            doneBlock(devices);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
+    }];
+        
+
     [self.operationQueue addOperation:deviceStatusRequestOperation];
 }
 

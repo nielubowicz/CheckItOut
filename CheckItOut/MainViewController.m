@@ -18,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIView *checkoutPanelContainerView;
 @property (weak, nonatomic) IBOutlet UIView *userPanelView;
 @property (weak, nonatomic) IBOutlet UILabel *currentUserLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tapAnywhereLabel;
+
+@property (strong, nonatomic) CIOCheckoutPanelViewController *checkoutPanelViewController;
 
 @end
 
@@ -58,7 +61,7 @@
                          
                          scanViewController.view.frame = self.codeScanContainerView.bounds;
                          [self.codeScanContainerView addSubview:scanViewController.view];
-                         
+                         [self.tapAnywhereLabel setAlpha:0.f];
                          
                      } completion:^(BOOL finished) {
                          
@@ -81,7 +84,7 @@
 - (IBAction)loginAction:(id)sender
 {
     CIOUser *user = [[CIOUser alloc] init];
-    user.username = @"cnielubowicz@mobiquityinc.com";
+    user.username = @"yolanda@mobiquityinc.com";
     user.userEmail = user.username;
     
     __weak typeof(self) weakSelf = self;
@@ -97,26 +100,51 @@
 #pragma mark - QRScannerDelegate
 - (void)scannerViewController:(ScanViewController *)scannerViewController didScanDevice:(CIODevice *)device
 {
-    if ([[self childViewControllers] count] == 1) {
-        CIOCheckoutPanelViewController *checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithNibName:@"CheckoutPanelView" bundle:nil];
-        checkoutPanelViewController.currentDevice = device;
-
-        [self addChildViewController:checkoutPanelViewController];
+    if (self.checkoutPanelViewController == nil) {
         
+        __weak typeof(self) weakSelf = self;
+        self.checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithCompletion:^{
+
+            __strong typeof(self)strongSelf = weakSelf;
+            [strongSelf.checkoutPanelViewController willMoveToParentViewController:nil];
+            [UIView animateWithDuration:1.5
+                                  delay:0.f
+                 usingSpringWithDamping:1.f
+                  initialSpringVelocity:10
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                                 
+                                 strongSelf.checkoutPanelViewController.view.alpha = 0.f;
+
+                             } completion:^(BOOL finished) {
+                                 
+                                 [strongSelf.checkoutPanelViewController.view removeFromSuperview];
+                                 [strongSelf.checkoutPanelViewController removeFromParentViewController];
+                                 strongSelf.checkoutPanelViewController = nil;
+                             }];
+        }];
+        self.checkoutPanelViewController.currentDevice = device;
+
+        [self addChildViewController:self.checkoutPanelViewController];
+        if (![[self.checkoutPanelViewController.view superview] isEqual:self.checkoutPanelViewController]) {
+            self.checkoutPanelViewController.view.frame = self.checkoutPanelContainerView.bounds;
+            self.checkoutPanelViewController.view.alpha = 0.f;
+            [self.checkoutPanelContainerView addSubview:self.checkoutPanelViewController.view];
+        }
+
         [UIView animateWithDuration:2.5
                               delay:0.f
-             usingSpringWithDamping:0.5
+             usingSpringWithDamping:1.f
               initialSpringVelocity:10
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              
-                             checkoutPanelViewController.view.frame = self.checkoutPanelContainerView.bounds;
-                             [self.checkoutPanelContainerView addSubview:checkoutPanelViewController.view];
-                             [self.view bringSubviewToFront:self.checkoutPanelContainerView];                             
+                             self.checkoutPanelViewController.view.alpha = 1.f;
+                             [self.view bringSubviewToFront:self.checkoutPanelContainerView];
                              
                          } completion:^(BOOL finished) {
 
-                             [checkoutPanelViewController didMoveToParentViewController:self];
+                             [self.checkoutPanelViewController didMoveToParentViewController:self];
                          }];
     }
 }

@@ -31,7 +31,6 @@ static const char *formatString = "Mobiquity Device System\nObjectID:%s\nDeviceI
         _deviceIdentifier = deviceInfo[kCIOParseDeviceIdentifierKey];
         _deviceModel = deviceInfo[kCIOParseDeviceModelKey];
         
-        // TODO: get current Owner from dictionary ?? or parse elsewhere ??
         if ([deviceInfo[kCIOParseDeviceCurrentOwnerKey] isEqual:[NSNull null]] || deviceInfo[kCIOParseDeviceCurrentOwnerKey] == nil) {
             _currentOwner = nil;
         } else {
@@ -59,27 +58,30 @@ static const char *formatString = "Mobiquity Device System\nObjectID:%s\nDeviceI
 
 + (NSDictionary *)dictionaryFromDetectionString:(NSString *)detectionString
 {
-    NSScanner *scanner = [NSScanner scannerWithString:detectionString];
-    [scanner scanUpToString:@"\n" intoString:NULL];
-    [scanner scanUpToString:@":" intoString:NULL];
-    [scanner setScanLocation:scanner.scanLocation + 1];
-    NSString *deviceObjectID;
-    [scanner scanUpToString:@"\n" intoString:&deviceObjectID];
-    [scanner scanUpToString:@":" intoString:NULL];
-    [scanner setScanLocation:scanner.scanLocation + 1];
-    NSString *deviceIdentifier;
-    [scanner scanUpToString:@"\n" intoString:&deviceIdentifier];
-    [scanner scanUpToString:@":" intoString:NULL];
-    [scanner setScanLocation:scanner.scanLocation + 1];
-    NSString *deviceLabel;
-    [scanner scanUpToString:@"\n" intoString:&deviceLabel];
-    
-    
-    NSDictionary *deviceInfo = @{
-                                 kCIOParseObjectIDKey : deviceObjectID,
-                                 kCIOParseDeviceIdentifierKey : deviceIdentifier,
-                                 kCIOParseDeviceLabelKey :deviceLabel,
-                                 };
+    NSDictionary *deviceInfo = nil;
+    if (detectionString.length >= strlen(formatString)) {
+        NSScanner *scanner = [NSScanner scannerWithString:detectionString];
+        [scanner scanUpToString:@"\n" intoString:NULL];
+        [scanner scanUpToString:@":" intoString:NULL];
+        [scanner setScanLocation:scanner.scanLocation + 1];
+        NSString *deviceObjectID;
+        [scanner scanUpToString:@"\n" intoString:&deviceObjectID];
+        [scanner scanUpToString:@":" intoString:NULL];
+        [scanner setScanLocation:scanner.scanLocation + 1];
+        NSString *deviceIdentifier;
+        [scanner scanUpToString:@"\n" intoString:&deviceIdentifier];
+        [scanner scanUpToString:@":" intoString:NULL];
+        [scanner setScanLocation:scanner.scanLocation + 1];
+        NSString *deviceLabel;
+        [scanner scanUpToString:@"\n" intoString:&deviceLabel];
+        
+        
+        deviceInfo = @{
+                       kCIOParseObjectIDKey : deviceObjectID,
+                       kCIOParseDeviceIdentifierKey : deviceIdentifier,
+                       kCIOParseDeviceLabelKey :deviceLabel,
+                       };
+    }
     return deviceInfo;
 }
 

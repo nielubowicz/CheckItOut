@@ -14,6 +14,7 @@
 typedef void (^CIONetworkUserLoginBlock)(CIOUser *user);
 typedef void (^CIONetworkDeviceCheckoutBlock)(CIODevice *device);
 typedef void (^CIONetworkDeviceAlreadyCheckedOutBlock)(CIODevice *device, CIOUser *deviceOwner);
+typedef void (^CIONetworkDevicesAvailableBlock)(NSArray *devices);
 typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
 
 @interface ParseNetworkManager : AFHTTPRequestOperationManager
@@ -28,5 +29,7 @@ typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
                   done:(CIONetworkDeviceCheckoutBlock)doneBlock
                  inUse:(CIONetworkDeviceAlreadyCheckedOutBlock)inUseBlock
                failure:(CIONetworkFailureBlock)failureBlock;
+
+- (void)fetchListOfAvailableDevicesWithDone:(CIONetworkDevicesAvailableBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 
 @end
