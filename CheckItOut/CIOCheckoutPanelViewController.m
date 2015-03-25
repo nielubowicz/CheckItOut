@@ -12,18 +12,18 @@
 #import "CIOUserManager.h"
 #import "CIOUser.h"
 
-@interface CIOCheckoutPanelViewController ()
+@interface CIOCheckoutPanelViewController () <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceModel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceLabel;
 
-@property (strong, nonatomic) void (^completionBlock)();
+@property (strong, nonatomic) void (^completionBlock)(BOOL cancelled);
 
 @end
 
 @implementation CIOCheckoutPanelViewController
 
-- (instancetype)initWithCompletion:(void(^)())completionBlock
+- (instancetype)initWithCompletion:(void(^)(BOOL cancelled))completionBlock
 {
     if (self = [super initWithNibName:@"CheckoutPanelView" bundle:nil]) {
         _completionBlock = completionBlock;
@@ -38,10 +38,11 @@
     self.deviceLabel.text = self.currentDevice.deviceLabel;
 }
 
+#pragma mark - IBActions
 - (IBAction)cancelAction:(id)sender
 {
     if (self.completionBlock) {
-        self.completionBlock();
+        self.completionBlock(YES);
     }
 }
 
@@ -61,7 +62,7 @@
                                                               }
                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                                                                               message:message
-                                                                                                             delegate:nil
+                                                                                                             delegate:self
                                                                                                     cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                                               [alert show];
                                                               
@@ -70,7 +71,7 @@
                                                               NSString *message = [NSString stringWithFormat:@"This device is already in use. Please contact the current owner, %@", deviceOwner.username];
                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dammit Craig!"
                                                                                                               message:message
-                                                                                                             delegate:nil
+                                                                                                             delegate:self
                                                                                                     cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                                               [alert show];
                                                               
@@ -78,10 +79,18 @@
                                                               
                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                                                                               message:@"Failed to checkout or return this device"
-                                                                                                             delegate:nil
+                                                                                                             delegate:self
                                                                                                     cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                                               [alert show];
                                                           }];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (self.completionBlock) {
+        self.completionBlock(NO);
+    }
 }
 
 @end

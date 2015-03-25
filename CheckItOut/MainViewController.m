@@ -79,6 +79,7 @@
                          
                          scanViewController.delegate = self;
                          [scanViewController didMoveToParentViewController:self];
+                         [scanViewController startScanning];
                      }];
 }
 - (IBAction)registerAction:(id)sender
@@ -115,9 +116,14 @@
     if (self.checkoutPanelViewController == nil) {
         
         __weak typeof(self) weakSelf = self;
-        self.checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithCompletion:^{
+        self.checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithCompletion:^(BOOL cancelled){
 
             __strong typeof(self)strongSelf = weakSelf;
+            if (!cancelled) {
+                [scannerViewController stopScanning];
+                [scannerViewController willMoveToParentViewController:nil];
+            }
+            
             [strongSelf.checkoutPanelViewController willMoveToParentViewController:nil];
             [UIView animateWithDuration:1.5
                                   delay:0.f
@@ -126,10 +132,17 @@
                                 options:UIViewAnimationOptionBeginFromCurrentState
                              animations:^{
                                  
+                                 if (!cancelled) {
+                                     scannerViewController.view.alpha = 0.f;
+                                     strongSelf.tapAnywhereLabel.alpha = 1.f;
+                                 }
                                  strongSelf.checkoutPanelViewController.view.alpha = 0.f;
-
-                             } completion:^(BOOL finished) {
                                  
+                             } completion:^(BOOL finished) {
+                                 if (!cancelled) {
+                                     [scannerViewController.view removeFromSuperview];
+                                     [scannerViewController removeFromParentViewController];
+                                 }
                                  [strongSelf.checkoutPanelViewController.view removeFromSuperview];
                                  [strongSelf.checkoutPanelViewController removeFromParentViewController];
                                  strongSelf.checkoutPanelViewController = nil;
@@ -138,11 +151,9 @@
         self.checkoutPanelViewController.currentDevice = device;
 
         [self addChildViewController:self.checkoutPanelViewController];
-        if (![[self.checkoutPanelViewController.view superview] isEqual:self.checkoutPanelViewController]) {
-            self.checkoutPanelViewController.view.frame = self.checkoutPanelContainerView.bounds;
-            self.checkoutPanelViewController.view.alpha = 0.f;
-            [self.checkoutPanelContainerView addSubview:self.checkoutPanelViewController.view];
-        }
+        self.checkoutPanelViewController.view.frame = self.checkoutPanelContainerView.bounds;
+        self.checkoutPanelViewController.view.alpha = 0.f;
+        [self.checkoutPanelContainerView addSubview:self.checkoutPanelViewController.view];
 
         [UIView animateWithDuration:2.5
                               delay:0.f

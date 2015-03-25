@@ -16,6 +16,9 @@
 
 @property (weak, nonatomic) id<QRScannerDelegate> delegate;
 
+- (void)startScanning;
+- (void)stopScanning;
+
 @end
 
 @protocol QRScannerDelegate <NSObject>

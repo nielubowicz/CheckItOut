@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) CIODevice *currentDevice;
 
-- (instancetype)initWithCompletion:(void(^)())completionBlock;
+- (instancetype)initWithCompletion:(void(^)(BOOL cancelled))completionBlock;
 
 @end

@@ -32,7 +32,6 @@
     // TODO: translate to auto-layout
     self.highlightView.layer.borderColor = [UIColor greenColor].CGColor;
     self.highlightView.layer.borderWidth = 3;
-    [self.view addSubview:self.highlightView];
     
     self.session = [[AVCaptureSession alloc] init];
     self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -55,10 +54,19 @@
     self.prevLayer.frame = self.view.bounds;
     self.prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:self.prevLayer];
-    
+}
+
+- (void)startScanning
+{
     [self.session startRunning];
-    
+    [self.view addSubview:self.highlightView];
     [self.view bringSubviewToFront:self.highlightView];
+}
+
+- (void)stopScanning
+{
+    [self.highlightView removeFromSuperview];
+    [self.session stopRunning];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
