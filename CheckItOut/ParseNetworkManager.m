@@ -14,6 +14,7 @@
 #import "CIOUser.h"
 #import "CIODevice.h"
 #import "NSDictionary+User.h"
+#import "CIOUserManager.h"
 
 @interface ParseNetworkManager ()
 
@@ -122,7 +123,10 @@
 }
 
 #pragma mark - Device checkout
-- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user;
+- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user
+                  done:(CIONetworkDeviceCheckoutBlock)doneBlock
+                 inUse:(CIONetworkDeviceAlreadyCheckedOutBlock)inUseBlock
+               failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSMutableURLRequest *deviceStatusRequest = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
                                                                                               URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
@@ -134,30 +138,102 @@
     
     [deviceStatusRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        // TODO: check to see if device is current checked out
-        // TODO: or offer to check-in device
-        NSDictionary *userDictionary = [NSDictionary pointerObjectForUser:user];
-        NSDictionary *parameters = @{
-                                     kCIOParseDeviceCurrentOwnerKey : userDictionary
-                                     };
-        NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
-                                                                                      URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
-                                                                                     parameters:parameters
-                                                                                          error:NULL];
+        CIODevice *returnedDevice = [[CIODevice alloc] initWithDictionary:responseObject];
         
-        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
-        
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%s %@", __PRETTY_FUNCTION__, responseObject);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
-        }];
-        
-        [self.operationQueue addOperation:requestOperation];
+        if (returnedDevice.currentOwner == nil) {
+            NSLog(@"Device: %@ is not checked out. Proceeding with checkout for user: %@", returnedDevice, user);
+            
+            NSDictionary *userDictionary = [NSDictionary pointerObjectForUser:user];
+            NSDictionary *parameters = @{
+                                         kCIOParseDeviceCurrentOwnerKey : userDictionary,
+                                         kCIOParseDeviceIsCheckedOutKey : @(YES)
+                                         };
+            NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"PUT"
+                                                                                          URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
+                                                                                         parameters:parameters
+                                                                                              error:NULL];
+            
+            AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+            
+            [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (doneBlock) {
+                    doneBlock(returnedDevice);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (failureBlock) {
+                    failureBlock(operation.request, error);
+                }
+            }];
+            
+            [self.operationQueue addOperation:requestOperation];
+        } else {
+
+            // compare current user to device's current owner
+            CIOUser *currentUser = [CIOUserManager sharedUserManager].currentUser;
+            if ([currentUser.objectID isEqualToString:returnedDevice.currentOwner.objectID]) {
+                NSLog(@"Device: %@ is checked out, by you!. Proceeding with checkin, this will remove user: %@ from the device", returnedDevice, user);
+                NSDictionary *parameters = @{
+                                             kCIOParseDeviceCurrentOwnerKey : @{ kCIOParseOperationKey : kCIOParseOperationDelete },
+                                             kCIOParseDeviceIsCheckedOutKey : @(NO)
+                                             };
+                
+                NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"PUT"
+                                                                                              URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:device.objectID]
+                                                                                             parameters:parameters
+                                                                                                  error:NULL];
+                
+                AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+                
+                [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    returnedDevice.currentOwner = nil;
+                    if (doneBlock) {
+                        doneBlock(returnedDevice);
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    if (failureBlock) {
+                        failureBlock(operation.request, error);
+                    }
+                }];
+                
+                [self.operationQueue addOperation:requestOperation];
+
+            } else {
+                NSDictionary *parameters = @{
+                                             kCIOParseObjectIDKey : returnedDevice.currentOwner.objectID
+                                             };
+                NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                              URLString:[CIOURLFactory userEndpointString]
+                                                                                             parameters:parameters
+                                                                                                  error:NULL];
+                
+                AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+                
+                [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    CIOUser *currentOwner = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject[@"results"]];
+                    NSLog(@"Device: %@ is checked out. You should go bother %@ to get the device", returnedDevice, currentOwner);
+                    
+                    if (inUseBlock) {
+                        inUseBlock(returnedDevice, currentOwner);
+                    }
+                    
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    if (failureBlock) {
+                        failureBlock(operation.request, error);
+                    }
+                }];
+                
+                [self.operationQueue addOperation:requestOperation];
+            }
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
     }];
     
     [self.operationQueue addOperation:deviceStatusRequestOperation];

@@ -15,6 +15,9 @@ FOUNDATION_EXPORT NSString *const kCIOParseSessionTokenHeader;
 FOUNDATION_EXPORT NSString *const kCIOParseApplicationIDHeader;
 FOUNDATION_EXPORT NSString *const kCIOParseRESTAPIKeyHeader;
 
+#pragma mark - Parse Operations
+FOUNDATION_EXPORT NSString *const kCIOParseOperationKey;
+FOUNDATION_EXPORT NSString *const kCIOParseOperationDelete;
 
 #pragma mark - Parse Keys
 FOUNDATION_EXPORT NSString *const kCIOParseObjectIDKey;
@@ -38,5 +41,6 @@ FOUNDATION_EXPORT NSString *const kCIOParseDeviceModelKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceLabelKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceIdentifierKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceCurrentOwnerKey;
+FOUNDATION_EXPORT NSString *const kCIOParseDeviceIsCheckedOutKey;
 
 @end

@@ -97,25 +97,28 @@
 #pragma mark - QRScannerDelegate
 - (void)scannerViewController:(ScanViewController *)scannerViewController didScanDevice:(CIODevice *)device
 {
-    CIOCheckoutPanelViewController *checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithNibName:@"CheckoutPanelView" bundle:nil];
-    [self addChildViewController:checkoutPanelViewController];
-    
-    [UIView animateWithDuration:2.5
-                          delay:0.f
-         usingSpringWithDamping:0.5
-          initialSpringVelocity:10
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         
-                         checkoutPanelViewController.view.frame = self.codeScanContainerView.bounds;
-                         [self.checkoutPanelContainerView addSubview:checkoutPanelViewController.view];
-                         [self.view bringSubviewToFront:self.checkoutPanelContainerView];
-                         
-                     } completion:^(BOOL finished) {
-                          // TODO: create CIODevice from detectionString
-                         checkoutPanelViewController.currentDevice = device;
-                         [checkoutPanelViewController didMoveToParentViewController:self];
-                     }];
+    if ([[self childViewControllers] count] == 1) {
+        CIOCheckoutPanelViewController *checkoutPanelViewController = [[CIOCheckoutPanelViewController alloc] initWithNibName:@"CheckoutPanelView" bundle:nil];
+        checkoutPanelViewController.currentDevice = device;
+
+        [self addChildViewController:checkoutPanelViewController];
+        
+        [UIView animateWithDuration:2.5
+                              delay:0.f
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:10
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             
+                             checkoutPanelViewController.view.frame = self.checkoutPanelContainerView.bounds;
+                             [self.checkoutPanelContainerView addSubview:checkoutPanelViewController.view];
+                             [self.view bringSubviewToFront:self.checkoutPanelContainerView];                             
+                             
+                         } completion:^(BOOL finished) {
+
+                             [checkoutPanelViewController didMoveToParentViewController:self];
+                         }];
+    }
 }
 
 @end

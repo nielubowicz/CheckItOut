@@ -8,6 +8,7 @@
 
 #import "CIODevice.h"
 #import "CIOParseConstants.h"
+#import "CIOUser.h"
 
 @interface CIODevice ()
 
@@ -31,6 +32,11 @@ static const char *formatString = "Mobiquity Device System\nObjectID:%s\nDeviceI
         _deviceModel = deviceInfo[kCIOParseDeviceModelKey];
         
         // TODO: get current Owner from dictionary ?? or parse elsewhere ??
+        if ([deviceInfo[kCIOParseDeviceCurrentOwnerKey] isEqual:[NSNull null]] || deviceInfo[kCIOParseDeviceCurrentOwnerKey] == nil) {
+            _currentOwner = nil;
+        } else {
+            _currentOwner = [[CIOUser alloc] initWithUsername:nil withInfo:deviceInfo[kCIOParseDeviceCurrentOwnerKey]];
+        }
     }
     return self;
 }

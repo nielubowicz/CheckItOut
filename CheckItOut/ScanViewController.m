@@ -74,6 +74,8 @@
             {
                 barCodeObject = (AVMetadataMachineReadableCodeObject *)[self.prevLayer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
                 highlightViewRect = barCodeObject.bounds;
+                self.highlightView.frame = highlightViewRect;
+
                 detectionString = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
                 break;
             }
@@ -88,8 +90,6 @@
             break;
         }
     }
-    
-    self.highlightView.frame = highlightViewRect;
 }
 
 @end

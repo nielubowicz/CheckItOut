@@ -15,6 +15,10 @@ NSString *const kCIOParseSessionTokenHeader = @"X-Parse-Session-Token";
 NSString *const kCIOParseApplicationIDHeader = @"X-Parse-Application-Id";
 NSString *const kCIOParseRESTAPIKeyHeader = @"X-Parse-REST-API-Key";
 
+#pragma mark - Parse Operations
+NSString *const kCIOParseOperationKey = @"__op";
+NSString *const kCIOParseOperationDelete = @"Delete";
+
 #pragma mark - Parse Keys
 NSString *const kCIOParseObjectIDKey = @"objectId";
 NSString *const kCIOParseCreatedAtKey = @"createdAt";
@@ -37,5 +41,6 @@ NSString *const kCIOParseDeviceModelKey = @"deviceModel";
 NSString *const kCIOParseDeviceLabelKey = @"deviceLabel";
 NSString *const kCIOParseDeviceIdentifierKey = @"deviceIdentifier";
 NSString *const kCIOParseDeviceCurrentOwnerKey = @"currentOwner";
+NSString *const kCIOParseDeviceIsCheckedOutKey = @"isCheckedOut";
 
 @end

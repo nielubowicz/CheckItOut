@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CIOCheckoutPanelViewController">
@@ -14,11 +13,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Zpj-Hq-7MC">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="488" height="124"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LQ-AE-ZhB">
-                    <rect key="frame" x="8" y="8" width="584" height="22"/>
+                    <rect key="frame" x="8" y="8" width="472" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="j5c-xH-CnO"/>
                     </constraints>
@@ -27,7 +26,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA8-eB-6jd">
-                    <rect key="frame" x="8" y="48" width="584" height="22"/>
+                    <rect key="frame" x="8" y="38" width="472" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="k1i-u7-Uqe"/>
                     </constraints>
@@ -36,7 +35,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlZ-fP-B3a">
-                    <rect key="frame" x="504" y="548" width="88" height="44"/>
+                    <rect key="frame" x="392" y="72" width="88" height="44"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="88" id="fZB-Jc-xjY"/>
                         <constraint firstAttribute="height" constant="44" id="gwQ-1v-XCm"/>
@@ -50,7 +49,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMu-by-itN">
-                    <rect key="frame" x="8" y="548" width="88" height="44"/>
+                    <rect key="frame" x="8" y="72" width="88" height="44"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="88" id="adD-GB-hcc"/>
                         <constraint firstAttribute="height" constant="44" id="srP-wO-u8q"/>
@@ -74,10 +73,9 @@
                 <constraint firstAttribute="bottom" secondItem="QMu-by-itN" secondAttribute="bottom" constant="8" id="PQa-CF-tJT"/>
                 <constraint firstAttribute="bottom" secondItem="HlZ-fP-B3a" secondAttribute="bottom" constant="8" id="Xx2-KP-iRp"/>
                 <constraint firstAttribute="trailing" secondItem="HlZ-fP-B3a" secondAttribute="trailing" constant="8" id="jaR-Xj-pqk"/>
-                <constraint firstItem="oA8-eB-6jd" firstAttribute="top" secondItem="5LQ-AE-ZhB" secondAttribute="bottom" constant="18" id="ki5-Sz-Ynw"/>
+                <constraint firstItem="oA8-eB-6jd" firstAttribute="top" secondItem="5LQ-AE-ZhB" secondAttribute="bottom" constant="8" id="ki5-Sz-Ynw"/>
                 <constraint firstItem="5LQ-AE-ZhB" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="pXP-YH-ghD"/>
             </constraints>
-            <point key="canvasLocation" x="475" y="-86"/>
         </view>
     </objects>
 </document>

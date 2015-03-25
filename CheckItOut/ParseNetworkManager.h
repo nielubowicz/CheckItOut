@@ -12,6 +12,8 @@
 @class CIODevice;
 
 typedef void (^CIONetworkUserLoginBlock)(CIOUser *user);
+typedef void (^CIONetworkDeviceCheckoutBlock)(CIODevice *device);
+typedef void (^CIONetworkDeviceAlreadyCheckedOutBlock)(CIODevice *device, CIOUser *deviceOwner);
 typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
 
 @interface ParseNetworkManager : AFHTTPRequestOperationManager
@@ -22,6 +24,9 @@ typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 - (void)retrieveUserForSessionToken:(NSString *)sessionToken done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 
-- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user;
+- (void)checkoutDevice:(CIODevice *)device toUser:(CIOUser *)user
+                  done:(CIONetworkDeviceCheckoutBlock)doneBlock
+                 inUse:(CIONetworkDeviceAlreadyCheckedOutBlock)inUseBlock
+               failure:(CIONetworkFailureBlock)failureBlock;
 
 @end

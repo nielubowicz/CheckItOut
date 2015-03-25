@@ -24,6 +24,7 @@
             _username = [username copy];
         }
     }
+    
     return self;
 }
 

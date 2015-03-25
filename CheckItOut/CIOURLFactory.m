@@ -89,7 +89,7 @@ static NSString *const baseParseURL = @"https://api.parse.com";
 
 + (NSURL *)deviceEndpointForObjectIdentifier:(NSString *)objectIdentifier
 {
-    NSURL *specificDeviceEndpoint = [NSURL URLWithString:objectIdentifier relativeToURL:[CIOURLFactory deviceEndpoint]];
+    NSURL *specificDeviceEndpoint = [NSURL URLWithString:[[CIOURLFactory deviceEndpointString] stringByAppendingFormat:@"/%@", objectIdentifier]];
     return specificDeviceEndpoint;
 }
 

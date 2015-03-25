@@ -37,7 +37,14 @@
 {
     NSLog(@"%s not implemented yet", __PRETTY_FUNCTION__);
     CIOUser *user = [CIOUserManager sharedUserManager].currentUser;
-    [[ParseNetworkManager sharedNetworkManager] checkoutDevice:self.currentDevice toUser:user];
+    [[ParseNetworkManager sharedNetworkManager] checkoutDevice:self.currentDevice toUser:user
+                                                          done:^(CIODevice *device) {
+                                                              
+                                                          } inUse:^(CIODevice *device, CIOUser *deviceOwner) {
+                                                              
+                                                          } failure:^(NSURLRequest *request, NSError *error) {
+                                                              
+                                                          }];
 }
 
 @end
