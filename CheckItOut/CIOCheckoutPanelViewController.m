@@ -15,7 +15,7 @@
 @interface CIOCheckoutPanelViewController () <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceModel;
-@property (weak, nonatomic) IBOutlet UILabel *deviceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentOwnerLabel;
 
 @property (strong, nonatomic) void (^completionBlock)(BOOL cancelled);
 
@@ -39,7 +39,9 @@
     [UIView animateWithDuration:0.f
                      animations:^{
                          self.deviceModel.text = self.currentDevice.deviceModel;
-                         self.deviceLabel.text = self.currentDevice.deviceLabel;
+                         self.currentOwnerLabel.text = (self.currentDevice.currentOwner == nil ?
+                                                        @"This device is available for checkout." :
+                                                        [NSString stringWithFormat:@"This device is checked out to: %@", self.currentDevice.currentOwner.userEmail]);
                      }];
 }
 

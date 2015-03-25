@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08833CF21AC345F200A190C4 /* LoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08833CF11AC345F200A190C4 /* LoginStoryboard.storyboard */; };
+		08833CF51AC346B300A190C4 /* CIOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08833CF41AC346B300A190C4 /* CIOLoginViewController.m */; };
 		08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097951AC1A1CF005E739D /* CIOAPIKeys.m */; };
 		08D0979A1AC1B5C7005E739D /* CIOUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097991AC1B5C7005E739D /* CIOUserManager.m */; };
 		08D0979D1AC1BA41005E739D /* CIODevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D0979C1AC1BA41005E739D /* CIODevice.m */; };
@@ -48,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08833CF11AC345F200A190C4 /* LoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryboard.storyboard; sourceTree = "<group>"; };
+		08833CF31AC346B300A190C4 /* CIOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOLoginViewController.h; sourceTree = "<group>"; };
+		08833CF41AC346B300A190C4 /* CIOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOLoginViewController.m; sourceTree = "<group>"; };
 		08D097941AC1A1CF005E739D /* CIOAPIKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAPIKeys.h; sourceTree = "<group>"; };
 		08D097951AC1A1CF005E739D /* CIOAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAPIKeys.m; sourceTree = "<group>"; };
 		08D097981AC1B5C7005E739D /* CIOUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOUserManager.h; sourceTree = "<group>"; };
@@ -151,6 +156,8 @@
 				08D097A41AC1F094005E739D /* CIOCheckoutPanelViewController.m */,
 				8E934C5C1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.h */,
 				8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */,
+				08833CF31AC346B300A190C4 /* CIOLoginViewController.h */,
+				08833CF41AC346B300A190C4 /* CIOLoginViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 			children = (
 				8E25D6F11AC100DA006AABB1 /* Main_iPhone.storyboard */,
 				08D097A71AC1F0D5005E739D /* CheckoutPanelView.xib */,
+				08833CF11AC345F200A190C4 /* LoginStoryboard.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -367,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E25D6FB1AC100DA006AABB1 /* Images.xcassets in Resources */,
+				08833CF21AC345F200A190C4 /* LoginStoryboard.storyboard in Resources */,
 				8E25D6F31AC100DA006AABB1 /* Main_iPhone.storyboard in Resources */,
 				8E25D6EA1AC100D9006AABB1 /* InfoPlist.strings in Resources */,
 				08D097A81AC1F0D5005E739D /* CheckoutPanelView.xib in Resources */,
@@ -427,6 +436,7 @@
 				8E25D6F91AC100DA006AABB1 /* MainViewController.m in Sources */,
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
+				08833CF51AC346B300A190C4 /* CIOLoginViewController.m in Sources */,
 				8E25D6EC1AC100D9006AABB1 /* main.m in Sources */,
 				8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */,
 				8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */,

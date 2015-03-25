@@ -66,10 +66,10 @@ NSString *const defaultPassword = @"junkpassword";
                                                                }];
 }
 
-- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
+- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
 {
     __weak typeof(self) weakSelf = self;
-    [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:user.userEmail
+    [[ParseNetworkManager sharedNetworkManager] loginUserWithEmail:userEmail
                                                           password:password
                                                               done:^(CIOUser *user) {
                                                                   
@@ -114,6 +114,11 @@ NSString *const defaultPassword = @"junkpassword";
             completionBlock(nil);
         }
     }
+}
+
+- (void)logoutCurrentUser
+{
+    self.currentUser = nil;
 }
 
 @end

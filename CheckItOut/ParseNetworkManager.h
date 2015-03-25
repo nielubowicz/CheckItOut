@@ -14,6 +14,7 @@
 typedef void (^CIONetworkUserLoginBlock)(CIOUser *user);
 typedef void (^CIONetworkDeviceCheckoutBlock)(CIODevice *device);
 typedef void (^CIONetworkDeviceAlreadyCheckedOutBlock)(CIODevice *device, CIOUser *deviceOwner);
+typedef void (^CIONetworkDeviceBlock)(CIODevice *device);
 typedef void (^CIONetworkDevicesAvailableBlock)(NSArray *devices);
 typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
 
@@ -31,5 +32,6 @@ typedef void (^CIONetworkFailureBlock)(NSURLRequest *request, NSError *error);
                failure:(CIONetworkFailureBlock)failureBlock;
 
 - (void)fetchListOfAvailableDevicesWithDone:(CIONetworkDevicesAvailableBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
+- (void)fetchDeviceWithIdentifier:(NSString *)identifier done:(CIONetworkDeviceBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 
 @end

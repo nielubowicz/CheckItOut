@@ -21,7 +21,8 @@ typedef void (^CIOUserManagerCompletionBlock)(CIOUser *user);
 + (instancetype)sharedUserManager;
 
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
-- (void)loginUser:(CIOUser *)user password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
+- (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password completion:(CIOUserManagerCompletionBlock)completionBlock;
 - (void)retrieveLoggedInUserWithCompletion:(CIOUserManagerCompletionBlock)completionBlock;
+- (void)logoutCurrentUser;
 
 @end

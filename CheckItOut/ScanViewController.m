@@ -9,6 +9,7 @@
 #import "ScanViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CIODevice.h"
+#import "ParseNetworkManager.h"
 
 @interface ScanViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
@@ -93,7 +94,17 @@
 
             if ([self.delegate respondsToSelector:@selector(scannerViewController:didScanDevice:)]) {
                 CIODevice *device = [[CIODevice alloc] initWithDetectionString:detectionString];
-                [self.delegate scannerViewController:self didScanDevice:device];
+                
+                __weak typeof(self) weakSelf = self;
+                [[ParseNetworkManager sharedNetworkManager] fetchDeviceWithIdentifier:device.objectID
+                                                                                 done:^(CIODevice *device) {
+                                                                                     
+                                                                                     __strong typeof(self)strongSelf = weakSelf;
+                                                                                     [strongSelf.delegate scannerViewController:strongSelf didScanDevice:device];
+                                                                                 } failure:^(NSURLRequest *request, NSError *error) {
+                                                                                     
+                                                                                 }];
+
             }
             break;
         }

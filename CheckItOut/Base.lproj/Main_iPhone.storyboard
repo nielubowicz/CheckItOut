@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Dpg-Au-QuJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Dpg-Au-QuJ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller - Checkout-->
+        <!--Checkout-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="MainViewController" sceneMemberID="viewController">
@@ -29,30 +31,16 @@
                             </containerView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap anywhere to start scanning" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="131" translatesAutoresizingMaskIntoConstraints="NO" id="2Tw-Ww-ZBO">
                                 <rect key="frame" x="95" y="140" width="131" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4PF-kg-hOQ">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4PF-kg-hOQ">
                                 <rect key="frame" x="0.0" y="328" width="320" height="103"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0p3-k4-mgk">
                                 <rect key="frame" x="0.0" y="328" width="320" height="103"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bD-oM-SE2">
-                                        <rect key="frame" x="8" y="51" width="79" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="79" id="VJs-Zd-HVl"/>
-                                            <constraint firstAttribute="height" constant="44" id="fRJ-Dw-wgQ"/>
-                                        </constraints>
-                                        <state key="normal" title="Register">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="registerAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Sz3-kb-rgZ"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AR-bR-qS6">
                                         <rect key="frame" x="233" y="51" width="79" height="44"/>
                                         <constraints>
@@ -79,11 +67,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Niw-9F-9ip" firstAttribute="top" secondItem="0p3-k4-mgk" secondAttribute="top" constant="20" id="9CG-Bl-YOk"/>
-                                    <constraint firstAttribute="bottom" secondItem="5bD-oM-SE2" secondAttribute="bottom" constant="8" id="I8f-V8-AEj"/>
                                     <constraint firstItem="Niw-9F-9ip" firstAttribute="leading" secondItem="0p3-k4-mgk" secondAttribute="leading" constant="8" id="IOs-nR-JfH"/>
                                     <constraint firstAttribute="trailing" secondItem="Niw-9F-9ip" secondAttribute="trailing" constant="8" id="MYe-Ya-jNw"/>
                                     <constraint firstAttribute="bottom" secondItem="4AR-bR-qS6" secondAttribute="bottom" constant="8" id="X4p-Us-JTF"/>
-                                    <constraint firstItem="5bD-oM-SE2" firstAttribute="leading" secondItem="0p3-k4-mgk" secondAttribute="leading" constant="8" id="e7R-aH-b7R"/>
                                     <constraint firstAttribute="trailing" secondItem="4AR-bR-qS6" secondAttribute="trailing" constant="8" id="xNX-TN-bRV"/>
                                 </constraints>
                             </view>
@@ -91,17 +77,21 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="4PF-kg-hOQ" secondAttribute="bottom" id="3c7-5f-9SR"/>
                             <constraint firstAttribute="trailing" secondItem="o09-zk-cmP" secondAttribute="trailing" id="55p-7j-UTw"/>
                             <constraint firstItem="0p3-k4-mgk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5hE-uJ-kyH"/>
                             <constraint firstAttribute="trailing" secondItem="0p3-k4-mgk" secondAttribute="trailing" id="QLX-AE-pcY"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0p3-k4-mgk" secondAttribute="bottom" id="Udu-PZ-HAf"/>
+                            <constraint firstItem="4PF-kg-hOQ" firstAttribute="top" secondItem="o09-zk-cmP" secondAttribute="bottom" constant="8" id="XGB-dZ-25i"/>
                             <constraint firstItem="0p3-k4-mgk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="a7W-zU-YyR"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0p3-k4-mgk" secondAttribute="bottom" id="fkE-xW-PvH"/>
                             <constraint firstItem="o09-zk-cmP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="lFG-jH-T7C"/>
                             <constraint firstItem="o09-zk-cmP" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="mcO-Sb-fNq"/>
                             <constraint firstAttribute="trailing" secondItem="0p3-k4-mgk" secondAttribute="trailing" id="nlh-mM-ZUt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4PF-kg-hOQ" secondAttribute="trailing" constant="-16" id="ns9-RZ-eJv"/>
                             <constraint firstItem="0p3-k4-mgk" firstAttribute="top" secondItem="o09-zk-cmP" secondAttribute="bottom" constant="8" id="p4F-yC-rY7"/>
                             <constraint firstItem="2Tw-Ww-ZBO" firstAttribute="centerY" secondItem="o09-zk-cmP" secondAttribute="centerY" id="pcF-2T-Jra"/>
+                            <constraint firstItem="4PF-kg-hOQ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="sYs-sb-BNa"/>
                             <constraint firstAttribute="centerX" secondItem="2Tw-Ww-ZBO" secondAttribute="centerX" id="xUB-U1-RJ3"/>
                         </constraints>
                     </view>
@@ -111,6 +101,7 @@
                         <outlet property="checkoutPanelContainerView" destination="4PF-kg-hOQ" id="Cg1-gN-gmi"/>
                         <outlet property="codeScanContainerView" destination="o09-zk-cmP" id="bGG-bK-YaU"/>
                         <outlet property="currentUserLabel" destination="Niw-9F-9ip" id="rbA-Rg-6Wn"/>
+                        <outlet property="loginButton" destination="4AR-bR-qS6" id="OwV-tb-5ni"/>
                         <outlet property="tapAnywhereLabel" destination="2Tw-Ww-ZBO" id="ln6-Ds-H5V"/>
                         <outlet property="userPanelView" destination="0p3-k4-mgk" id="hED-xG-1AY"/>
                     </connections>
@@ -124,12 +115,12 @@
             </objects>
             <point key="canvasLocation" x="924" y="71"/>
         </scene>
-        <!--Available Devices Table View Controller - Available Devices-->
+        <!--Available Devices-->
         <scene sceneID="oDg-bT-VWB">
             <objects>
                 <tableViewController id="CDU-Jm-vGJ" customClass="CIOAvailableDevicesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="485-J7-aCd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -163,7 +154,7 @@
                             <outlet property="delegate" destination="CDU-Jm-vGJ" id="dYP-65-y28"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Available Devices" id="GeC-ib-fpm"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </tableViewController>

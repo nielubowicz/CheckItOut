@@ -247,7 +247,60 @@
     [self.operationQueue addOperation:deviceStatusRequestOperation];
 }
 
-#pragma mark - Devices list
+#pragma mark - Device methods
+- (void)fetchDeviceWithIdentifier:(NSString *)identifier done:(CIONetworkDeviceBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock
+{
+    NSMutableURLRequest *deviceStatusRequest = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                              URLString:[CIOURLFactory deviceEndpointStringForObjectIdentifier:identifier]
+                                                                                             parameters:nil
+                                                                                                  error:NULL];
+    
+    AFHTTPRequestOperation *deviceStatusRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:deviceStatusRequest];
+    deviceStatusRequestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [deviceStatusRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        
+            CIODevice *device = [[CIODevice alloc] initWithDictionary:responseObject];
+        if (device.currentOwner == nil) {
+            if (doneBlock) {
+                doneBlock(device);
+            }
+        } else {
+            NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"
+                                                                                          URLString:[CIOURLFactory userEndpointStringForObjectIdentifier:device.currentOwner.objectID]
+                                                                                         parameters:nil
+                                                                                              error:NULL];
+            
+            AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+            requestOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+            
+            [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                CIOUser *currentOwner = [[CIOUser alloc] initWithUsername:nil withInfo:responseObject];
+                device.currentOwner = currentOwner;
+                if (doneBlock) {
+                    doneBlock(device);
+                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (failureBlock) {
+                    failureBlock(operation.request, error);
+                }
+            }];
+            
+            [self.operationQueue addOperation:requestOperation];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock) {
+            failureBlock(operation.request, error);
+        }
+    }];
+    
+    
+    [self.operationQueue addOperation:deviceStatusRequestOperation];
+}
+
 - (void)fetchListOfAvailableDevicesWithDone:(CIONetworkDevicesAvailableBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock
 {
     

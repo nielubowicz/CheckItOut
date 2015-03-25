@@ -11,14 +11,16 @@
 #import "CIOCheckoutPanelViewController.h"
 #import "CIOUserManager.h"
 #import "CIOUser.h"
+#import "CIOLoginViewController.h"
 
-@interface MainViewController () <QRScannerDelegate>
+@interface MainViewController () <QRScannerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *codeScanContainerView;
 @property (weak, nonatomic) IBOutlet UIView *checkoutPanelContainerView;
 @property (weak, nonatomic) IBOutlet UIView *userPanelView;
 @property (weak, nonatomic) IBOutlet UILabel *currentUserLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tapAnywhereLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (strong, nonatomic) CIOCheckoutPanelViewController *checkoutPanelViewController;
 
@@ -38,24 +40,45 @@
 {
     [super viewWillAppear:animated];
     
-    __weak typeof(self) weakSelf = self;
-    [[CIOUserManager sharedUserManager] retrieveLoggedInUserWithCompletion:^(CIOUser *user) {
-        
-        __strong typeof(self)strongSelf = weakSelf;
-        strongSelf.currentUserLabel.text = user.userEmail;
-        if (!user.isEmailVerified) {
-            [strongSelf promptForVerification];
-        }
-    }];
+    [self setupViewForUser:[[CIOUserManager sharedUserManager] currentUser]];
+    [[CIOUserManager sharedUserManager] addObserver:self forKeyPath:@"currentUser" options:NSKeyValueObservingOptionNew context:nil];
+    
+    if ([[CIOUserManager sharedUserManager] currentUser] == nil) {
+        __weak typeof(self) weakSelf = self;
+        [[CIOUserManager sharedUserManager] retrieveLoggedInUserWithCompletion:^(CIOUser *user) {
+            
+            __strong typeof(self)strongSelf = weakSelf;
+            if (user && !user.isEmailVerified) {
+                [strongSelf promptForVerification];
+            }
+        }];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[CIOUserManager sharedUserManager] removeObserver:self forKeyPath:@"currentUser"];
 }
 
 - (void)promptForVerification
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
                                                     message:@"You may not checkout a device until you have verified your email. Please check your email and respond."
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)setupViewForUser:(CIOUser *)user
+{
+    if (user) {
+        [self.loginButton setTitle:@"Logout" forState:UIControlStateNormal];
+        self.currentUserLabel.text = user.userEmail;
+    } else {
+        [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+        self.currentUserLabel.text = nil;
+    }
 }
 
 #pragma mark - IBActions
@@ -96,18 +119,13 @@
 
 - (IBAction)loginAction:(id)sender
 {
-    CIOUser *user = [[CIOUser alloc] init];
-    user.username = @"cnielubowicz@mobiquityinc.com";
-    user.userEmail = user.username;
-    
-    __weak typeof(self) weakSelf = self;
-    [[CIOUserManager sharedUserManager] loginUser:user
-                                         password:defaultPassword
-                                       completion:^(CIOUser *user) {
-                                           
-                                           __strong typeof(self)strongSelf = weakSelf;
-                                           strongSelf.currentUserLabel.text = user.userEmail;
-                                       }];
+    if ([[CIOUserManager sharedUserManager] currentUser] == nil) {
+        CIOLoginViewController *loginViewController = [[UIStoryboard storyboardWithName:@"LoginStoryboard" bundle:nil] instantiateInitialViewController];
+        [self presentViewController:loginViewController animated:YES completion:NULL];
+    } else {
+        [[CIOUserManager sharedUserManager] logoutCurrentUser];
+        [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - QRScannerDelegate
@@ -181,6 +199,25 @@
                              
                          } completion:NULL];
     }    
+}
+
+#pragma mark - Dismiss segue
+- (IBAction)unwindToMainView:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
+
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+//    abort();
+}
+
+#pragma mark - KVO 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    CIOUser *user = [[CIOUserManager sharedUserManager] currentUser];
+    [self setupViewForUser:user];
 }
 
 @end

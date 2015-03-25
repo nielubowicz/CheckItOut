@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CIOCheckoutPanelViewController">
             <connections>
-                <outlet property="deviceLabel" destination="oA8-eB-6jd" id="ipJ-N3-Omd"/>
+                <outlet property="currentOwnerLabel" destination="oA8-eB-6jd" id="miC-Md-Rom"/>
                 <outlet property="deviceModel" destination="5LQ-AE-ZhB" id="NQH-on-L67"/>
                 <outlet property="view" destination="Zpj-Hq-7MC" id="zwG-Pt-wci"/>
             </connections>
@@ -28,6 +29,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA8-eB-6jd">
                     <rect key="frame" x="8" y="38" width="472" height="22"/>
                     <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="RuS-LS-LrE"/>
                         <constraint firstAttribute="height" constant="22" id="k1i-u7-Uqe"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,15 +69,22 @@
             <constraints>
                 <constraint firstItem="5LQ-AE-ZhB" firstAttribute="top" secondItem="Zpj-Hq-7MC" secondAttribute="top" constant="8" id="0U8-gF-hXQ"/>
                 <constraint firstItem="QMu-by-itN" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="9Iv-ek-Ray"/>
-                <constraint firstItem="oA8-eB-6jd" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="9db-CN-EbL"/>
                 <constraint firstAttribute="trailing" secondItem="5LQ-AE-ZhB" secondAttribute="trailing" constant="8" id="AXP-ZC-QBf"/>
-                <constraint firstAttribute="trailing" secondItem="oA8-eB-6jd" secondAttribute="trailing" constant="8" id="P9G-9e-SLr"/>
+                <constraint firstItem="oA8-eB-6jd" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="Hcm-BJ-Yp4"/>
                 <constraint firstAttribute="bottom" secondItem="QMu-by-itN" secondAttribute="bottom" constant="8" id="PQa-CF-tJT"/>
+                <constraint firstItem="oA8-eB-6jd" firstAttribute="top" secondItem="5LQ-AE-ZhB" secondAttribute="bottom" constant="8" id="SJv-c5-ZOf"/>
                 <constraint firstAttribute="bottom" secondItem="HlZ-fP-B3a" secondAttribute="bottom" constant="8" id="Xx2-KP-iRp"/>
+                <constraint firstAttribute="trailing" secondItem="oA8-eB-6jd" secondAttribute="trailing" constant="8" id="gJO-GT-FWi"/>
                 <constraint firstAttribute="trailing" secondItem="HlZ-fP-B3a" secondAttribute="trailing" constant="8" id="jaR-Xj-pqk"/>
-                <constraint firstItem="oA8-eB-6jd" firstAttribute="top" secondItem="5LQ-AE-ZhB" secondAttribute="bottom" constant="8" id="ki5-Sz-Ynw"/>
                 <constraint firstItem="5LQ-AE-ZhB" firstAttribute="leading" secondItem="Zpj-Hq-7MC" secondAttribute="leading" constant="8" id="pXP-YH-ghD"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
