@@ -21,7 +21,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.tableView.contentInset = UIEdgeInsetsMake(12, 0, 0, 0); // inset so content is not covered by the status-bar
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshDeviceList:) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
