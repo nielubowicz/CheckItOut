@@ -84,6 +84,10 @@
 #pragma mark - IBActions
 - (IBAction)scanAction:(id)sender
 {
+    if ([[CIOUserManager sharedUserManager] currentUser] == nil) {
+        [self loginAction:self];
+    }
+    
     ScanViewController *scanViewController = [[ScanViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:scanViewController];
     
@@ -105,16 +109,10 @@
                          [scanViewController startScanning];
                      }];
 }
+
 - (IBAction)registerAction:(id)sender
 {
-    __weak typeof(self) weakSelf = self;
-    [[CIOUserManager sharedUserManager] createUserWithEmail:@"cnielubowicz@mobiquityinc.com"
-                                                   password:defaultPassword
-                                                 completion:^(CIOUser *user) {
-                                                     
-                                                     __strong typeof(self)strongSelf = weakSelf;
-                                                     strongSelf.currentUserLabel.text = user.userEmail;
-                                                 }];
+    NSLog(@"%s not implemented yet", __PRETTY_FUNCTION__);
 }
 
 - (IBAction)loginAction:(id)sender

@@ -115,7 +115,7 @@
             </objects>
             <point key="canvasLocation" x="924" y="71"/>
         </scene>
-        <!--Available Devices-->
+        <!--Device List-->
         <scene sceneID="oDg-bT-VWB">
             <objects>
                 <tableViewController id="CDU-Jm-vGJ" customClass="CIOAvailableDevicesTableViewController" sceneMemberID="viewController">
@@ -155,7 +155,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Available Devices" id="GeC-ib-fpm"/>
+                    <tabBarItem key="tabBarItem" title="Device List" id="GeC-ib-fpm"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlB-da-g2k" userLabel="First Responder" sceneMemberID="firstResponder"/>

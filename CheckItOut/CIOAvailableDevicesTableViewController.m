@@ -9,6 +9,7 @@
 #import "CIOAvailableDevicesTableViewController.h"
 #import "ParseNetworkManager.h"
 #import "CIODevice.h"
+#import "CIOUser.h"
 
 @interface CIOAvailableDevicesTableViewController ()
 
@@ -69,6 +70,14 @@
     CIODevice *device = self.deviceList[indexPath.row];
     cell.textLabel.text = device.deviceModel;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", device.deviceLabel, device.deviceIdentifier];
+    
+    if (device.currentOwner != nil) {
+        cell.textLabel.text = [cell.textLabel.text stringByAppendingFormat:@" checked out by %@", device.currentOwner.userEmail];
+        [cell.textLabel setTextColor:[UIColor redColor]];
+    } else {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    }
+    
     return cell;
 }
 
