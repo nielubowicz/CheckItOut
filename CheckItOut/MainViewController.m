@@ -169,7 +169,18 @@
 
                              [self.checkoutPanelViewController didMoveToParentViewController:self];
                          }];
-    }
+    } else {
+        [UIView animateWithDuration:2.5
+                              delay:0.f
+             usingSpringWithDamping:1.f
+              initialSpringVelocity:10
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             
+                             self.checkoutPanelViewController.currentDevice = device;
+                             
+                         } completion:NULL];
+    }    
 }
 
 @end

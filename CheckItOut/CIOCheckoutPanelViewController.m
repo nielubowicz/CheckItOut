@@ -31,11 +31,16 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+#pragma mark - Custom Properties
+- (void)setCurrentDevice:(CIODevice *)currentDevice
 {
-    [super viewWillAppear:animated];
-    self.deviceModel.text = self.currentDevice.deviceModel;
-    self.deviceLabel.text = self.currentDevice.deviceLabel;
+    _currentDevice = currentDevice;
+    
+    [UIView animateWithDuration:0.f
+                     animations:^{
+                         self.deviceModel.text = self.currentDevice.deviceModel;
+                         self.deviceLabel.text = self.currentDevice.deviceLabel;
+                     }];
 }
 
 #pragma mark - IBActions
