@@ -31,10 +31,11 @@ FOUNDATION_EXPORT NSString *const kCIOParseClassNameKey;
 FOUNDATION_EXPORT NSString *const kCIOParseClassUser;
 
 #pragma mark - CIOUser keys
-FOUNDATION_EXPORT NSString *const kCIOParseUserUsername;
-FOUNDATION_EXPORT NSString *const kCIOParseUserEmail;
-FOUNDATION_EXPORT NSString *const kCIOParseUserPassword;
-FOUNDATION_EXPORT NSString *const kCIOParseUserSessionToken;
+FOUNDATION_EXPORT NSString *const kCIOParseUserUsernameKey;
+FOUNDATION_EXPORT NSString *const kCIOParseUserEmailKey;
+FOUNDATION_EXPORT NSString *const kCIOParseUserEmailVerifiedKey;
+FOUNDATION_EXPORT NSString *const kCIOParseUserPasswordKey;
+FOUNDATION_EXPORT NSString *const kCIOParseUserSessionTokenKey;
 
 #pragma mark - CIODevice keys
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceModelKey;

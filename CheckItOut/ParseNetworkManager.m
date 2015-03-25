@@ -40,9 +40,9 @@
 - (void)createUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
-                                 kCIOParseUserUsername : userEmail,
-                                 kCIOParseUserEmail : userEmail,
-                                 kCIOParseUserPassword : password
+                                 kCIOParseUserUsernameKey : userEmail,
+                                 kCIOParseUserEmailKey : userEmail,
+                                 kCIOParseUserPasswordKey : password
                                  };
     
     NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"POST"
@@ -70,9 +70,9 @@
 - (void)loginUserWithEmail:(NSString *)userEmail password:(NSString *)password done:(CIONetworkUserLoginBlock)doneBlock failure:(CIONetworkFailureBlock)failureBlock;
 {
     NSDictionary *parameters = @{
-                                 kCIOParseUserUsername : userEmail,
-                                 kCIOParseUserEmail : userEmail,
-                                 kCIOParseUserPassword : password
+                                 kCIOParseUserUsernameKey : userEmail,
+                                 kCIOParseUserEmailKey : userEmail,
+                                 kCIOParseUserPasswordKey : password
                                  };
     
     NSMutableURLRequest *request = [[CIOJSONRequestSerializer serializer] requestWithMethod:@"GET"

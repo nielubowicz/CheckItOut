@@ -15,14 +15,15 @@
 {
     if (self = [super init]) {
         _objectID = userInfo[kCIOParseObjectIDKey];
-        _sessionToken = userInfo[kCIOParseUserSessionToken];
+        _sessionToken = userInfo[kCIOParseUserSessionTokenKey];
         if (username == nil) {
-            _username = userInfo[kCIOParseUserUsername];
-            _userEmail = userInfo[kCIOParseUserEmail];
+            _username = userInfo[kCIOParseUserUsernameKey];
+            _userEmail = userInfo[kCIOParseUserEmailKey];
         } else {
             _userEmail = [username copy];
             _username = [username copy];
         }
+        _emailVerified = [userInfo[kCIOParseUserEmailVerifiedKey] boolValue];
     }
     
     return self;

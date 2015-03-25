@@ -31,10 +31,11 @@ NSString *const kCIOParseClassNameKey = @"className";
 NSString *const kCIOParseClassUser = @"_User";
 
 #pragma mark - CIOUser keys
-NSString *const kCIOParseUserUsername = @"username";
-NSString *const kCIOParseUserEmail = @"email";
-NSString *const kCIOParseUserPassword = @"password";
-NSString *const kCIOParseUserSessionToken = @"sessionToken";
+NSString *const kCIOParseUserUsernameKey = @"username";
+NSString *const kCIOParseUserEmailKey = @"email";
+NSString *const kCIOParseUserEmailVerifiedKey = @"emailVerified";
+NSString *const kCIOParseUserPasswordKey = @"password";
+NSString *const kCIOParseUserSessionTokenKey = @"sessionToken";
 
 #pragma mark - CIODevice keys
 NSString *const kCIOParseDeviceModelKey = @"deviceModel";

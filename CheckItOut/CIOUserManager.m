@@ -33,6 +33,7 @@ NSString *const defaultPassword = @"junkpassword";
 - (void)setSessionToken:(NSString *)sessionToken
 {
     [[NSUserDefaults standardUserDefaults] setValue:sessionToken forKey:@"SessionToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setCurrentUser:(CIOUser *)currentUser

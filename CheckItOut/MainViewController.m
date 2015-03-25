@@ -43,7 +43,19 @@
         
         __strong typeof(self)strongSelf = weakSelf;
         strongSelf.currentUserLabel.text = user.userEmail;
+        if (!user.isEmailVerified) {
+            [strongSelf promptForVerification];
+        }
     }];
+}
+
+- (void)promptForVerification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                    message:@"You may not checkout a device until you have verified your email. Please check your email and respond."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - IBActions
@@ -84,7 +96,7 @@
 - (IBAction)loginAction:(id)sender
 {
     CIOUser *user = [[CIOUser alloc] init];
-    user.username = @"yolanda@mobiquityinc.com";
+    user.username = @"cnielubowicz@mobiquityinc.com";
     user.userEmail = user.username;
     
     __weak typeof(self) weakSelf = self;

@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic, readonly) NSString *objectID;
 @property (strong, nonatomic, readonly) NSString *sessionToken;
+@property (assign, nonatomic, readonly, getter = isEmailVerified) BOOL emailVerified;
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *userEmail;
 
