@@ -16,6 +16,7 @@
 		08D097A51AC1F094005E739D /* CIOCheckoutPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D097A41AC1F094005E739D /* CIOCheckoutPanelViewController.m */; };
 		08D097A81AC1F0D5005E739D /* CheckoutPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08D097A71AC1F0D5005E739D /* CheckoutPanelView.xib */; };
 		213253B4D9404A3A91CA19F1 /* libPods-CheckItOut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B27EEFB0E53642AF91F8F6EA /* libPods-CheckItOut.a */; };
+		8E14B18D1AC3B22100193B89 /* CIOSlackUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E14B18B1AC3B22100193B89 /* CIOSlackUserManager.m */; };
 		8E25D6E01AC100D9006AABB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6DF1AC100D9006AABB1 /* Foundation.framework */; };
 		8E25D6E21AC100D9006AABB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6E11AC100D9006AABB1 /* CoreGraphics.framework */; };
 		8E25D6E41AC100D9006AABB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E25D6E31AC100D9006AABB1 /* UIKit.framework */; };
@@ -65,6 +66,8 @@
 		08D097A41AC1F094005E739D /* CIOCheckoutPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOCheckoutPanelViewController.m; sourceTree = "<group>"; };
 		08D097A71AC1F0D5005E739D /* CheckoutPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutPanelView.xib; sourceTree = "<group>"; };
 		7C16D53B8F5CA8956200C47C /* Pods-CheckItOut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckItOut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckItOut/Pods-CheckItOut.debug.xcconfig"; sourceTree = "<group>"; };
+		8E14B18B1AC3B22100193B89 /* CIOSlackUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOSlackUserManager.m; sourceTree = "<group>"; };
+		8E14B18C1AC3B22100193B89 /* CIOSlackUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOSlackUserManager.h; sourceTree = "<group>"; };
 		8E25D6DC1AC100D9006AABB1 /* CheckItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E25D6DF1AC100D9006AABB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E25D6E11AC100D9006AABB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -130,6 +133,8 @@
 		08D097971AC1B5B8005E739D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8E14B18C1AC3B22100193B89 /* CIOSlackUserManager.h */,
+				8E14B18B1AC3B22100193B89 /* CIOSlackUserManager.m */,
 				08D097981AC1B5C7005E739D /* CIOUserManager.h */,
 				08D097991AC1B5C7005E739D /* CIOUserManager.m */,
 			);
@@ -432,6 +437,7 @@
 			files = (
 				08D097A51AC1F094005E739D /* CIOCheckoutPanelViewController.m in Sources */,
 				08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */,
+				8E14B18D1AC3B22100193B89 /* CIOSlackUserManager.m in Sources */,
 				08D0979D1AC1BA41005E739D /* CIODevice.m in Sources */,
 				8E25D6F91AC100DA006AABB1 /* MainViewController.m in Sources */,
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,

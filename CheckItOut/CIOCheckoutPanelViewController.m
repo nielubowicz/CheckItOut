@@ -11,6 +11,7 @@
 #import "CIODevice.h"
 #import "CIOUserManager.h"
 #import "CIOUser.h"
+#import "CIOSlackUserManager.h"
 
 @interface CIOCheckoutPanelViewController () <UIAlertViewDelegate>
 
@@ -56,8 +57,14 @@
 - (IBAction)checkoutAction:(id)sender
 {
     CIOUser *user = [CIOUserManager sharedUserManager].currentUser;
+
+    __weak typeof(self) weakSelf = self;
     [[ParseNetworkManager sharedNetworkManager] checkoutDevice:self.currentDevice toUser:user
                                                           done:^(CIODevice *device) {
+
+                                                              __strong typeof(self)strongSelf = weakSelf;
+                                                              strongSelf.currentDevice = device;
+                                                              
                                                               NSString *title = nil;
                                                               NSString *message = nil;
                                                               if (device.currentOwner) {
@@ -75,11 +82,14 @@
                                                               
                                                           } inUse:^(CIODevice *device, CIOUser *deviceOwner) {
                                                               
+                                                              __strong typeof(self)strongSelf = weakSelf;
+                                                              strongSelf.currentDevice = device;
+                                                              
                                                               NSString *message = [NSString stringWithFormat:@"This device is already in use. Please contact the current owner, %@", deviceOwner.username];
                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dammit Craig!"
                                                                                                               message:message
                                                                                                              delegate:self
-                                                                                                    cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                                                                    cancelButtonTitle:@"Done" otherButtonTitles:@"Poke them on Slack", nil];
                                                               [alert show];
                                                               
                                                           } failure:^(NSURLRequest *request, NSError *error) {
@@ -95,6 +105,10 @@
 #pragma mark - UIAlertViewDelegate methods
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Poke them on Slack"]) {
+        [[CIOSlackUserManager sharedSlackManager] postMessageToUser:self.currentDevice.currentOwner.userEmail];
+    }
+    
     if (self.completionBlock) {
         self.completionBlock(NO);
     }

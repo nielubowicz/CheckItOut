@@ -10,3 +10,6 @@
 
 FOUNDATION_EXPORT NSString *const ParseApplicationIdentifier;
 FOUNDATION_EXPORT NSString *const ParseRESTAPIKey;
+
+FOUNDATION_EXPORT NSString *const CIOSlackClientID;
+FOUNDATION_EXPORT NSString *const CIOSlackClientSecret;
