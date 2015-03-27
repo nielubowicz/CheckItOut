@@ -53,6 +53,13 @@
     }];
 }
 
+- (CGFloat)hoursSinceCheckoutDate:(NSDate *)checkout
+{
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:checkout];
+    CGFloat hours = timeInterval / 60.0 / 60.0;
+    return hours;
+}
+
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -68,16 +75,18 @@
     }
     
     CIODevice *device = self.deviceList[indexPath.row];
-    cell.textLabel.text = device.deviceModel;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", device.deviceModel, device.deviceOperatingSystem];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", device.deviceLabel, device.deviceIdentifier];
     
     if (device.currentOwner != nil) {
         cell.textLabel.text = [cell.textLabel.text stringByAppendingFormat:@" checked out by %@", device.currentOwner.userEmail];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"for %.1f hours", [self hoursSinceCheckoutDate:device.lastCheckout]];
         [cell.textLabel setTextColor:[UIColor redColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];
     }
     
+    [cell.detailTextLabel setTextColor:cell.textLabel.textColor];
     return cell;
 }
 

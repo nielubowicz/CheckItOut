@@ -16,10 +16,26 @@
 @property (copy, nonatomic, readwrite) NSString *deviceLabel;
 @property (copy, nonatomic, readwrite) NSString *deviceIdentifier;
 @property (copy, nonatomic, readwrite) NSString *deviceModel;
+@property (copy, nonatomic, readwrite) NSString *deviceOperatingSystem;
+@property (copy, nonatomic, readwrite) NSDate *lastCheckout;
 
 @end
 
 @implementation CIODevice
+
++ (NSDateFormatter *)dateFormatter
+{
+    static NSDateFormatter *_dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        [_dateFormatter setDateFormat:kCIOParseDateFormatString];
+    });
+    
+    return _dateFormatter;
+}
 
 - (instancetype)initWithDictionary:(NSDictionary *)deviceInfo
 {
@@ -28,7 +44,9 @@
         _deviceLabel = deviceInfo[kCIOParseDeviceLabelKey];
         _deviceIdentifier = deviceInfo[kCIOParseDeviceIdentifierKey];
         _deviceModel = deviceInfo[kCIOParseDeviceModelKey];
-        
+        _deviceOperatingSystem = deviceInfo[kCIOParseDeviceOSKey];
+        _lastCheckout = [[[self class] dateFormatter] dateFromString:deviceInfo[kCIOParseUpdatedAtKey]];
+
         if ([deviceInfo[kCIOParseDeviceCurrentOwnerKey] isEqual:[NSNull null]] || deviceInfo[kCIOParseDeviceCurrentOwnerKey] == nil) {
             _currentOwner = nil;
         } else {
@@ -51,7 +69,10 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@: (objectId:%@, deviceID:%@) Model:%@ - Label:%@", NSStringFromClass([self class]), self.objectID, self.deviceIdentifier, self.deviceModel, self.deviceLabel];
+    return [NSString stringWithFormat:@"%@: (objectId:%@, deviceID:%@) Model:%@ running %@ - Label:%@",
+            NSStringFromClass([self class]),
+            self.objectID, self.deviceIdentifier, self.deviceModel,
+            self.deviceOperatingSystem, self.deviceLabel];
 }
 
 + (NSDictionary *)dictionaryFromDetectionString:(NSString *)detectionString

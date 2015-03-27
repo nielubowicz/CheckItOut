@@ -10,6 +10,8 @@
 
 @interface CIOParseConstants : NSObject
 
+FOUNDATION_EXPORT NSString * const kCIOParseDateFormatString;
+
 #pragma mark - Parse HTTP Header Keys
 FOUNDATION_EXPORT NSString *const kCIOParseSessionTokenHeader;
 FOUNDATION_EXPORT NSString *const kCIOParseApplicationIDHeader;
@@ -43,5 +45,6 @@ FOUNDATION_EXPORT NSString *const kCIOParseDeviceLabelKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceIdentifierKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceCurrentOwnerKey;
 FOUNDATION_EXPORT NSString *const kCIOParseDeviceIsCheckedOutKey;
+FOUNDATION_EXPORT NSString *const kCIOParseDeviceOSKey;
 
 @end

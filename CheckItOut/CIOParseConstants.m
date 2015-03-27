@@ -10,6 +10,8 @@
 
 @implementation CIOParseConstants
 
+NSString * const kCIOParseDateFormatString = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'";
+
 #pragma mark - Parse HTTP Header Keys
 NSString *const kCIOParseSessionTokenHeader = @"X-Parse-Session-Token";
 NSString *const kCIOParseApplicationIDHeader = @"X-Parse-Application-Id";
@@ -43,5 +45,6 @@ NSString *const kCIOParseDeviceLabelKey = @"deviceLabel";
 NSString *const kCIOParseDeviceIdentifierKey = @"deviceIdentifier";
 NSString *const kCIOParseDeviceCurrentOwnerKey = @"currentOwner";
 NSString *const kCIOParseDeviceIsCheckedOutKey = @"isCheckedOut";
+NSString *const kCIOParseDeviceOSKey = @"deviceOS";
 
 @end
