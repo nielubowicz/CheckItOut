@@ -350,6 +350,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Assorted Intelligence";
 				TargetAttributes = {
+					8E25D6DB1AC100D9006AABB1 = {
+						DevelopmentTeam = GS86NCENM6;
+					};
 					8E25D6FF1AC100DA006AABB1 = {
 						TestTargetID = 8E25D6DB1AC100D9006AABB1;
 					};
