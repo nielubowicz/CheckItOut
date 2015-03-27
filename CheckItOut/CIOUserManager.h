@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CIOUser.h"
 
 FOUNDATION_EXPORT NSString *const defaultPassword;
-
-@class CIOUser;
 
 typedef void (^CIOUserManagerCompletionBlock)(CIOUser *user);
 

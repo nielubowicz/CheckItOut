@@ -8,7 +8,6 @@
 
 #import "CIOUserManager.h"
 #import "ParseNetworkManager.h"
-#import "CIOUser.h"
 
 NSString *const defaultPassword = @"junkpassword";
 

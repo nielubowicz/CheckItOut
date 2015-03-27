@@ -7,12 +7,41 @@
 //
 
 #import "CIOSlackUserManager.h"
+#import "CIOUserManager.h"
 #import "CIOAPIKeys.h"
+
+static NSString *const kCIOSlackUsernameKeyPath = @"name";
+static NSString *const kCIOSlackUserIDKeyPath = @"id";
+static NSString *const kCIOSlackUserEmailKeyPath = @"profile.email";
+
+@interface CIOSlackUser  : NSObject
+
+@property (copy, nonatomic) NSString *username;
+@property (copy, nonatomic) NSString *userEmail;
+@property (copy, nonatomic) NSString *slackUserID;
+
+- (instancetype)initWithDictionary:(NSDictionary *)slackUserInfo;
+
+@end
+
+@implementation CIOSlackUser
+
+- (instancetype)initWithDictionary:(NSDictionary *)slackUserInfo;
+{
+    if (self = [super init]) {
+        _userEmail = [slackUserInfo valueForKeyPath:kCIOSlackUserEmailKeyPath];
+        _username = [slackUserInfo valueForKeyPath:kCIOSlackUsernameKeyPath];
+        _slackUserID = [slackUserInfo valueForKeyPath:kCIOSlackUserIDKeyPath];
+    }
+    return self;
+}
+
+@end
 
 @interface CIOSlackUserManager ()
 
 @property (strong, nonatomic) NSString *accessToken;
-@property (strong, nonatomic) NSDictionary *members;
+@property (copy, nonatomic) NSArray *members;
 
 @end
 
@@ -41,20 +70,20 @@ static NSString *kCIOSlackAccessTokenKey = @"SlackAccessToken";
     return [[NSUserDefaults standardUserDefaults] valueForKey:kCIOSlackAccessTokenKey];
 }
 
-- (NSString *)slackUserNameFromMembersWithEmail:(NSString *)email
+- (CIOSlackUser *)slackUserFromMembersWithEmail:(NSString *)email
 {
-    NSString *username = nil;
-    for (NSDictionary *user in self.members) {
-        if ([[user valueForKeyPath:@"profile.email"] isEqualToString:email]) {
-            username = user[@"name"];
+    CIOSlackUser *returnedUser = nil;
+    for (CIOSlackUser *user in self.members) {
+        if ([user.userEmail isEqualToString:email]) {
+            returnedUser = user;
             break;
         }
     }
     
-    return username;
+    return returnedUser;
 }
 
-- (void)slackUserForUser:(NSString *)userEmail completion:(void(^)(NSString *username))completionBlock
+- (void)slackUserForUser:(NSString *)userEmail completion:(void(^)(CIOSlackUser *user))completionBlock
 {
     if (self.accessToken == nil) {
         [self requestAuthorizationForCurrentUser];
@@ -62,7 +91,7 @@ static NSString *kCIOSlackAccessTokenKey = @"SlackAccessToken";
     
     if (self.members) {
         if (completionBlock) {
-            completionBlock([self slackUserNameFromMembersWithEmail:userEmail]);
+            completionBlock([self slackUserFromMembersWithEmail:userEmail]);
         }
     } else {
         NSURLSession *session = [NSURLSession sharedSession];
@@ -78,9 +107,15 @@ static NSString *kCIOSlackAccessTokenKey = @"SlackAccessToken";
                                                      NSDictionary *jsonBlob = [NSJSONSerialization JSONObjectWithData:data
                                                                                                               options:NSJSONReadingAllowFragments
                                                                                                                 error:NULL];
-                                                     strongSelf.members = jsonBlob[@"members"];
+                                                     NSMutableArray *slackUserArray = [NSMutableArray array];
+                                                     for (NSDictionary *slackUserInfo in jsonBlob[@"members"]) {
+                                                         CIOSlackUser *user = [[CIOSlackUser alloc] initWithDictionary:slackUserInfo];
+                                                         [slackUserArray addObject:user];
+                                                     }
+                                                     
+                                                     strongSelf.members = slackUserArray;
                                                      if (completionBlock) {
-                                                         completionBlock([strongSelf slackUserNameFromMembersWithEmail:userEmail]);
+                                                         completionBlock([strongSelf slackUserFromMembersWithEmail:userEmail]);
                                                      }
                                                  }];
         [userListTask resume];
@@ -129,17 +164,25 @@ static NSString *kCIOSlackAccessTokenKey = @"SlackAccessToken";
     if (self.accessToken == nil) {
         [self requestAuthorizationForCurrentUser];
     }
-    
-    NSString *message = [@"This message sent to you by CheckItOut, courtesy of @cnielubowicz. Return your device now or face the consequences" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *slackURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://slack.com/api/chat.postMessage?token=%@&channel=@%@&text=%@",
-                                            self.accessToken, username, message]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:slackURL];
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionTask *oauthTask = [session dataTaskWithRequest:request
-                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                 
-                                             }];
-    [oauthTask resume];
+
+    [self slackUserForUser:[CIOUserManager sharedUserManager].currentUser.userEmail completion:^(CIOSlackUser *posterSlackUser) {
+        [self slackUserForUser:username completion:^(CIOSlackUser *slackUser) {
+            
+            NSString *message = [NSString stringWithFormat:@"This message sent to you by CheckItOut, courtesy of <@%@|%@>. Return your device now or face the consequences",
+                                 posterSlackUser.slackUserID,
+                                 posterSlackUser.username];
+            NSString *escapedMessage = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *slackURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://slack.com/api/chat.postMessage?token=%@&channel=@%@&text=%@",
+                                                    self.accessToken, slackUser.username, escapedMessage]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:slackURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            NSURLSessionTask *oauthTask = [session dataTaskWithRequest:request
+                                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                         
+                                                     }];
+            [oauthTask resume];
+        }];
+    }];
 }
 
 @end

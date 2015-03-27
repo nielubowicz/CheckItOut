@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class CIOSlackUser;
+
 @interface CIOSlackUserManager : NSObject
 
 + (instancetype)sharedSlackManager;
 
 - (void)requestAuthorizationForCurrentUser;
 - (void)issueTokenForResponseURL:(NSURL *)response;
-- (void)slackUserForUser:(NSString *)userEmail completion:(void(^)(NSString *username))completionBlock;
+- (void)slackUserForUser:(NSString *)userEmail completion:(void(^)(CIOSlackUser *slackUser))completionBlock;
 - (void)postMessageToUser:(NSString *)username;
 
 @end
