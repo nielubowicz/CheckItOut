@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -38,9 +38,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlZ-fP-B3a">
-                    <rect key="frame" x="392" y="72" width="88" height="44"/>
+                    <rect key="frame" x="293" y="72" width="187" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="88" id="fZB-Jc-xjY"/>
+                        <constraint firstAttribute="width" constant="187" id="fZB-Jc-xjY"/>
                         <constraint firstAttribute="height" constant="44" id="gwQ-1v-XCm"/>
                     </constraints>
                     <state key="normal" title="Checkout">

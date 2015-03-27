@@ -50,7 +50,7 @@
                              checkoutButtonString = @"Checkin";
                          } else {
                              checkoutString = [NSString stringWithFormat:@"This device is checked out to: %@", self.currentDevice.currentOwner.userEmail];
-                             
+                             checkoutButtonString = @"Poke in Slack";
                          }
                          self.currentOwnerLabel.text = checkoutString;
                          [self.checkoutButton setTitle:checkoutButtonString forState:UIControlStateNormal];
@@ -95,12 +95,11 @@
                                                               
                                                               __strong typeof(self)strongSelf = weakSelf;
                                                               strongSelf.currentDevice = device;
-                                                              
-                                                              NSString *message = [NSString stringWithFormat:@"This device is already in use. Please contact the current owner, %@", deviceOwner.username];
-                                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dammit Craig!"
-                                                                                                              message:message
+                                                              [[CIOSlackUserManager sharedSlackManager] postMessageToUser:self.currentDevice.currentOwner.userEmail];
+                                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                                                                              message:[NSString stringWithFormat:@"Poked %@", self.currentDevice.currentOwner.userEmail]
                                                                                                              delegate:self
-                                                                                                    cancelButtonTitle:@"Done" otherButtonTitles:@"Poke them on Slack", nil];
+                                                                                                    cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                                               [alert show];
                                                               
                                                           } failure:^(NSURLRequest *request, NSError *error) {
@@ -115,11 +114,7 @@
 
 #pragma mark - UIAlertViewDelegate methods
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Poke them on Slack"]) {
-        [[CIOSlackUserManager sharedSlackManager] postMessageToUser:self.currentDevice.currentOwner.userEmail];
-    }
-    
+{    
     if (self.completionBlock) {
         self.completionBlock(NO);
     }
