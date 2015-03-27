@@ -160,6 +160,7 @@
                                      [scannerViewController removeFromParentViewController];
                                  }
                                  [strongSelf.checkoutPanelViewController.view removeFromSuperview];
+                                 [strongSelf.view sendSubviewToBack:strongSelf.checkoutPanelContainerView];
                                  [strongSelf.checkoutPanelViewController removeFromParentViewController];
                                  strongSelf.checkoutPanelViewController = nil;
                              }];
