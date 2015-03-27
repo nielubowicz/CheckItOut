@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceModel;
 @property (weak, nonatomic) IBOutlet UILabel *currentOwnerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *checkoutButton;
 
 @property (strong, nonatomic) void (^completionBlock)(BOOL cancelled);
 
@@ -40,9 +41,19 @@
     [UIView animateWithDuration:0.f
                      animations:^{
                          self.deviceModel.text = self.currentDevice.deviceModel;
-                         self.currentOwnerLabel.text = (self.currentDevice.currentOwner == nil ?
-                                                        @"This device is available for checkout." :
-                                                        [NSString stringWithFormat:@"This device is checked out to: %@", self.currentDevice.currentOwner.userEmail]);
+                         NSString *checkoutString = nil;
+                         NSString *checkoutButtonString = @"Checkout";
+                         if (self.currentDevice.currentOwner == nil) {
+                             checkoutString = @"This device is available for checkout.";
+                         } else if ([self.currentDevice.currentOwner.objectID isEqualToString:[CIOUserManager sharedUserManager].currentUser.objectID]) {
+                             checkoutString = @"You currently have this device checked out.";
+                             checkoutButtonString = @"Checkin";
+                         } else {
+                             checkoutString = [NSString stringWithFormat:@"This device is checked out to: %@", self.currentDevice.currentOwner.userEmail];
+                             
+                         }
+                         self.currentOwnerLabel.text = checkoutString;
+                         [self.checkoutButton setTitle:checkoutButtonString forState:UIControlStateNormal];
                      }];
 }
 

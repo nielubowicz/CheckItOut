@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CIOCheckoutPanelViewController">
             <connections>
+                <outlet property="checkoutButton" destination="HlZ-fP-B3a" id="ld4-9U-Pdf"/>
                 <outlet property="currentOwnerLabel" destination="oA8-eB-6jd" id="miC-Md-Rom"/>
                 <outlet property="deviceModel" destination="5LQ-AE-ZhB" id="NQH-on-L67"/>
                 <outlet property="view" destination="Zpj-Hq-7MC" id="zwG-Pt-wci"/>
