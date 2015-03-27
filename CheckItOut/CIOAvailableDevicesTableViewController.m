@@ -76,7 +76,6 @@
     
     CIODevice *device = self.deviceList[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", device.deviceModel, device.deviceOperatingSystem];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", device.deviceLabel, device.deviceIdentifier];
     
     if (device.currentOwner != nil) {
         cell.textLabel.text = [cell.textLabel.text stringByAppendingFormat:@" checked out by %@", device.currentOwner.userEmail];
