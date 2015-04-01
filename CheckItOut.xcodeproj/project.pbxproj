@@ -35,6 +35,7 @@
 		8E25D71F1AC1070E006AABB1 /* ParseNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D71E1AC1070E006AABB1 /* ParseNetworkManager.m */; };
 		8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7211AC10905006AABB1 /* CIOURLFactory.m */; };
 		8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */; };
+		8E6647291ACA4C5800595758 /* CIODeviceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6647281ACA4C5800595758 /* CIODeviceDataSource.m */; };
 		8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */; };
 		8EDB61D71AC12AE700A9A0E6 /* NSDictionary+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */; };
 		8EDB61DA1AC12AF500A9A0E6 /* CIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D91AC12AF500A9A0E6 /* CIOUser.m */; };
@@ -95,6 +96,8 @@
 		8E25D7211AC10905006AABB1 /* CIOURLFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOURLFactory.m; sourceTree = "<group>"; };
 		8E25D7231AC10FF3006AABB1 /* CIOJSONRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOJSONRequestSerializer.h; sourceTree = "<group>"; };
 		8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOJSONRequestSerializer.m; sourceTree = "<group>"; };
+		8E6647271ACA4C5800595758 /* CIODeviceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIODeviceDataSource.h; sourceTree = "<group>"; };
+		8E6647281ACA4C5800595758 /* CIODeviceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIODeviceDataSource.m; sourceTree = "<group>"; };
 		8E934C5C1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAvailableDevicesTableViewController.h; sourceTree = "<group>"; };
 		8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAvailableDevicesTableViewController.m; sourceTree = "<group>"; };
 		8EDB61D51AC12AE700A9A0E6 /* NSDictionary+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+User.h"; sourceTree = "<group>"; };
@@ -221,6 +224,7 @@
 		8E25D6E51AC100D9006AABB1 /* CheckItOut */ = {
 			isa = PBXGroup;
 			children = (
+				8E6647261ACA4C3000595758 /* Custom Data Sources */,
 				08D097A61AC1F0B6005E739D /* Storyboards */,
 				08D097A21AC1F073005E739D /* Controllers */,
 				08D097971AC1B5B8005E739D /* Managers */,
@@ -278,6 +282,15 @@
 				8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */,
 			);
 			name = "Network Managers";
+			sourceTree = "<group>";
+		};
+		8E6647261ACA4C3000595758 /* Custom Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8E6647271ACA4C5800595758 /* CIODeviceDataSource.h */,
+				8E6647281ACA4C5800595758 /* CIODeviceDataSource.m */,
+			);
+			name = "Custom Data Sources";
 			sourceTree = "<group>";
 		};
 		8EDB61D31AC12AB800A9A0E6 /* Models */ = {
@@ -442,6 +455,7 @@
 				08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */,
 				8E14B18D1AC3B22100193B89 /* CIOSlackUserManager.m in Sources */,
 				08D0979D1AC1BA41005E739D /* CIODevice.m in Sources */,
+				8E6647291ACA4C5800595758 /* CIODeviceDataSource.m in Sources */,
 				8E25D6F91AC100DA006AABB1 /* MainViewController.m in Sources */,
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
