@@ -34,4 +34,17 @@
     return [NSString stringWithFormat:@"%@: email:%@", NSStringFromClass([self class]), self.userEmail];
 }
 
+#pragma mark - NSCopying methods
+- (id)copyWithZone:(NSZone *)zone
+{
+    CIOUser *user = [[self class] allocWithZone:zone];
+    user->_objectID = [_objectID copyWithZone:zone];
+    user->_sessionToken = [_sessionToken copyWithZone:zone];
+    user->_userEmail = [_userEmail copyWithZone:zone];
+    user->_username = [_username copyWithZone:zone];
+    user->_emailVerified = self.isEmailVerified;
+    user->_objectID = [_objectID copyWithZone:zone];
+    return user;
+}
+
 @end
