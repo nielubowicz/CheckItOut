@@ -28,3 +28,4 @@ Pods/
 Podfile.lock
 
 CIOAPIKeys.m
+api.keys

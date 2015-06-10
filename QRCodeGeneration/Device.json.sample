@@ -1,0 +1,19 @@
+{ "results": [
+	{
+        "createdAt": "2015-03-25T16:06:32.026Z",
+        "deviceIdentifier": "73",
+        "deviceLabel": "Galaxy S3 QA Device 2",
+        "deviceModel": "Galaxy S3",
+        "deviceOS": "Android 4.1.2",
+        "objectId": "XXXXXXXXXX",
+        "updatedAt": "2015-03-25T16:06:32.026Z"
+    },
+	{
+        "createdAt": "2015-03-25T16:06:32.038Z",
+        "deviceLabel": "Blackberry QA Device 1",
+        "deviceModel": "Blackberry Z10",
+        "deviceOS": "BB 10.2",
+        "objectId": "YYYYYYYYYY",
+        "updatedAt": "2015-03-25T16:06:32.038Z"
+    }
+] }
