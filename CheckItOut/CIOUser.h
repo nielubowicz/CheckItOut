@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CIOUser : NSObject
+@interface CIOUser : NSObject <NSCopying>
 
 @property (strong, nonatomic, readonly) NSString *objectID;
 @property (strong, nonatomic, readonly) NSString *sessionToken;

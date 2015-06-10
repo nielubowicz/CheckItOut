@@ -10,9 +10,12 @@
 #import "ParseNetworkManager.h"
 #import "CIODevice.h"
 #import "CIOUser.h"
+#import "CIOUserManager.h"
+#import "CIODeviceDataSource.h"
 
 @interface CIOAvailableDevicesTableViewController ()
 
+@property (strong, nonatomic) CIODeviceDataSource *dataSource;
 @property (copy, nonatomic) NSArray *deviceList;
 
 @end
@@ -42,6 +45,8 @@
         
         __strong __typeof__(self) strongSelf = weakSelf;
         strongSelf.deviceList = devices;
+        strongSelf.dataSource = [[CIODeviceDataSource alloc] initWithDeviceList:strongSelf.deviceList forUser:[CIOUserManager sharedUserManager].currentUser];
+        strongSelf.tableView.dataSource = strongSelf.dataSource;
         [strongSelf.tableView reloadData];
         [strongSelf.refreshControl endRefreshing];
         
@@ -58,35 +63,6 @@
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:checkout];
     CGFloat hours = timeInterval / 60.0 / 60.0;
     return hours;
-}
-
-#pragma mark - Table view data source
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.deviceList.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell" forIndexPath:indexPath];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"DeviceCell"];
-    }
-    
-    CIODevice *device = self.deviceList[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", device.deviceModel, device.deviceOperatingSystem];
-    
-    if (device.currentOwner != nil) {
-        cell.textLabel.text = [cell.textLabel.text stringByAppendingFormat:@" checked out by %@", device.currentOwner.userEmail];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"for %.1f hours", [self hoursSinceCheckoutDate:device.lastCheckout]];
-        [cell.textLabel setTextColor:[UIColor redColor]];
-    } else {
-        [cell.textLabel setTextColor:[UIColor blackColor]];
-    }
-    
-    [cell.detailTextLabel setTextColor:cell.textLabel.textColor];
-    return cell;
 }
 
 @end
