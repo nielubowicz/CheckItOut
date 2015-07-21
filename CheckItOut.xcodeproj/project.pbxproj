@@ -37,6 +37,10 @@
 		8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E25D7241AC10FF3006AABB1 /* CIOJSONRequestSerializer.m */; };
 		8E6647291ACA4C5800595758 /* CIODeviceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6647281ACA4C5800595758 /* CIODeviceDataSource.m */; };
 		8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */; };
+		8EBC17641B5DDD8D009889C6 /* UIImage+nonInterpolatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC17631B5DDD8D009889C6 /* UIImage+nonInterpolatedImage.m */; };
+		8EBC17671B5DDE08009889C6 /* CIOBarcodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC17661B5DDE08009889C6 /* CIOBarcodeGenerator.m */; };
+		8EBC176B1B5DE776009889C6 /* CIODeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC176A1B5DE776009889C6 /* CIODeviceTableViewCell.m */; };
+		8ECED4031B5A11A3003E77EC /* CIODeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECED4021B5A11A3003E77EC /* CIODeviceInfoViewController.m */; };
 		8EDB61D71AC12AE700A9A0E6 /* NSDictionary+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */; };
 		8EDB61DA1AC12AF500A9A0E6 /* CIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB61D91AC12AF500A9A0E6 /* CIOUser.m */; };
 /* End PBXBuildFile section */
@@ -100,6 +104,14 @@
 		8E6647281ACA4C5800595758 /* CIODeviceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIODeviceDataSource.m; sourceTree = "<group>"; };
 		8E934C5C1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOAvailableDevicesTableViewController.h; sourceTree = "<group>"; };
 		8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOAvailableDevicesTableViewController.m; sourceTree = "<group>"; };
+		8EBC17621B5DDD8D009889C6 /* UIImage+NonInterpolatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NonInterpolatedImage.h"; sourceTree = "<group>"; };
+		8EBC17631B5DDD8D009889C6 /* UIImage+nonInterpolatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+nonInterpolatedImage.m"; sourceTree = "<group>"; };
+		8EBC17651B5DDE08009889C6 /* CIOBarcodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOBarcodeGenerator.h; sourceTree = "<group>"; };
+		8EBC17661B5DDE08009889C6 /* CIOBarcodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIOBarcodeGenerator.m; sourceTree = "<group>"; };
+		8EBC17691B5DE776009889C6 /* CIODeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIODeviceTableViewCell.h; sourceTree = "<group>"; };
+		8EBC176A1B5DE776009889C6 /* CIODeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIODeviceTableViewCell.m; sourceTree = "<group>"; };
+		8ECED4011B5A11A3003E77EC /* CIODeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIODeviceInfoViewController.h; sourceTree = "<group>"; };
+		8ECED4021B5A11A3003E77EC /* CIODeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIODeviceInfoViewController.m; sourceTree = "<group>"; };
 		8EDB61D51AC12AE700A9A0E6 /* NSDictionary+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+User.h"; sourceTree = "<group>"; };
 		8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+User.m"; sourceTree = "<group>"; };
 		8EDB61D81AC12AF500A9A0E6 /* CIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOUser.h; sourceTree = "<group>"; };
@@ -136,6 +148,8 @@
 		08D097971AC1B5B8005E739D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8EBC17651B5DDE08009889C6 /* CIOBarcodeGenerator.h */,
+				8EBC17661B5DDE08009889C6 /* CIOBarcodeGenerator.m */,
 				8E14B18C1AC3B22100193B89 /* CIOSlackUserManager.h */,
 				8E14B18B1AC3B22100193B89 /* CIOSlackUserManager.m */,
 				08D097981AC1B5C7005E739D /* CIOUserManager.h */,
@@ -166,6 +180,8 @@
 				8E934C5D1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m */,
 				08833CF31AC346B300A190C4 /* CIOLoginViewController.h */,
 				08833CF41AC346B300A190C4 /* CIOLoginViewController.m */,
+				8ECED4011B5A11A3003E77EC /* CIODeviceInfoViewController.h */,
+				8ECED4021B5A11A3003E77EC /* CIODeviceInfoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -224,6 +240,7 @@
 		8E25D6E51AC100D9006AABB1 /* CheckItOut */ = {
 			isa = PBXGroup;
 			children = (
+				8EBC17681B5DE75B009889C6 /* TableView Cells */,
 				8E6647261ACA4C3000595758 /* Custom Data Sources */,
 				08D097A61AC1F0B6005E739D /* Storyboards */,
 				08D097A21AC1F073005E739D /* Controllers */,
@@ -293,6 +310,15 @@
 			name = "Custom Data Sources";
 			sourceTree = "<group>";
 		};
+		8EBC17681B5DE75B009889C6 /* TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8EBC17691B5DE776009889C6 /* CIODeviceTableViewCell.h */,
+				8EBC176A1B5DE776009889C6 /* CIODeviceTableViewCell.m */,
+			);
+			name = "TableView Cells";
+			sourceTree = "<group>";
+		};
 		8EDB61D31AC12AB800A9A0E6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +333,8 @@
 		8EDB61D41AC12AC000A9A0E6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8EBC17621B5DDD8D009889C6 /* UIImage+NonInterpolatedImage.h */,
+				8EBC17631B5DDD8D009889C6 /* UIImage+nonInterpolatedImage.m */,
 				8EDB61D51AC12AE700A9A0E6 /* NSDictionary+User.h */,
 				8EDB61D61AC12AE700A9A0E6 /* NSDictionary+User.m */,
 			);
@@ -453,10 +481,12 @@
 			files = (
 				08D097A51AC1F094005E739D /* CIOCheckoutPanelViewController.m in Sources */,
 				08D097961AC1A1CF005E739D /* CIOAPIKeys.m in Sources */,
+				8EBC17671B5DDE08009889C6 /* CIOBarcodeGenerator.m in Sources */,
 				8E14B18D1AC3B22100193B89 /* CIOSlackUserManager.m in Sources */,
 				08D0979D1AC1BA41005E739D /* CIODevice.m in Sources */,
 				8E6647291ACA4C5800595758 /* CIODeviceDataSource.m in Sources */,
 				8E25D6F91AC100DA006AABB1 /* MainViewController.m in Sources */,
+				8EBC17641B5DDD8D009889C6 /* UIImage+nonInterpolatedImage.m in Sources */,
 				8E25D6F01AC100D9006AABB1 /* AppDelegate.m in Sources */,
 				8E25D7221AC10905006AABB1 /* CIOURLFactory.m in Sources */,
 				08833CF51AC346B300A190C4 /* CIOLoginViewController.m in Sources */,
@@ -464,11 +494,13 @@
 				8E934C5E1AC250FE00A0CC68 /* CIOAvailableDevicesTableViewController.m in Sources */,
 				8E25D7251AC10FF3006AABB1 /* CIOJSONRequestSerializer.m in Sources */,
 				08D0979A1AC1B5C7005E739D /* CIOUserManager.m in Sources */,
+				8EBC176B1B5DE776009889C6 /* CIODeviceTableViewCell.m in Sources */,
 				08D097A11AC1BBB6005E739D /* CIOParseConstants.m in Sources */,
 				8EDB61DA1AC12AF500A9A0E6 /* CIOUser.m in Sources */,
 				8E25D7191AC10220006AABB1 /* ScanViewController.m in Sources */,
 				8E25D71F1AC1070E006AABB1 /* ParseNetworkManager.m in Sources */,
 				8EDB61D71AC12AE700A9A0E6 /* NSDictionary+User.m in Sources */,
+				8ECED4031B5A11A3003E77EC /* CIODeviceInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

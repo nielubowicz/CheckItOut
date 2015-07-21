@@ -12,8 +12,10 @@
 #import "CIOUser.h"
 #import "CIOUserManager.h"
 #import "CIODeviceDataSource.h"
+#import "CIODeviceInfoViewController.h"
+#import "CIODeviceTableViewCell.h"
 
-@interface CIOAvailableDevicesTableViewController ()
+@interface CIOAvailableDevicesTableViewController () <UITableViewDelegate>
 
 @property (strong, nonatomic) CIODeviceDataSource *dataSource;
 @property (copy, nonatomic) NSArray *deviceList;
@@ -21,6 +23,8 @@
 @end
 
 @implementation CIOAvailableDevicesTableViewController
+
+static NSString *kShowDeviceInfoSegue = @"ShowDeviceInfo";
 
 - (void)viewDidLoad
 {
@@ -58,11 +62,15 @@
     }];
 }
 
-- (CGFloat)hoursSinceCheckoutDate:(NSDate *)checkout
-{
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:checkout];
-    CGFloat hours = timeInterval / 60.0 / 60.0;
-    return hours;
+
+#pragma mark - 
+#pragma mark Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(CIODeviceTableViewCell *)sender {
+    if ([segue.identifier isEqualToString:kShowDeviceInfoSegue]) {
+        CIODeviceInfoViewController *deviceInfoViewController = (CIODeviceInfoViewController *)segue.destinationViewController;
+        deviceInfoViewController.device = sender.device;
+    }
 }
 
 @end

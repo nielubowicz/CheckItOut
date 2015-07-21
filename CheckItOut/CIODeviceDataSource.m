@@ -7,6 +7,7 @@
 //
 
 #import "CIODeviceDataSource.h"
+#import "CIODeviceTableViewCell.h"
 #import "CIOUser.h"
 #import "CIODevice.h"
 
@@ -58,12 +59,6 @@ static NSString *const kCIODeviceSectionHeaderAvailable = @"Available Devices";
     return self;
 }
 
-- (CGFloat)hoursSinceCheckoutDate:(NSDate *)checkout
-{
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:checkout];
-    CGFloat hours = timeInterval / 60.0 / 60.0;
-    return hours;
-}
 
 #pragma mark - UITableViewDataSource methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
@@ -82,20 +77,8 @@ static NSString *const kCIODeviceSectionHeaderAvailable = @"Available Devices";
     NSArray *currentDeviceList = self.sectionedDeviceList[indexPath.section];
     CIODevice *device = currentDeviceList[indexPath.row];
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCIODeviceCellIdentifier];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", device.deviceModel, device.deviceOperatingSystem];
-    
-    if (device.currentOwner != nil) {
-        cell.textLabel.text = [cell.textLabel.text stringByAppendingFormat:@" checked out by %@", device.currentOwner.userEmail];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"for %.1f hours", [self hoursSinceCheckoutDate:device.lastCheckout]];
-        [cell.textLabel setTextColor:[UIColor redColor]];
-    } else {
-        cell.detailTextLabel.text = nil;
-        [cell.textLabel setTextColor:[UIColor blackColor]];
-    }
-    
-    [cell.detailTextLabel setTextColor:cell.textLabel.textColor];
-
+    CIODeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCIODeviceCellIdentifier];
+    [cell configureForDevice:device];
     return cell;
 }
 

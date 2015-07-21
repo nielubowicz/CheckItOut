@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Dpg-Au-QuJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Dpg-Au-QuJ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -113,18 +113,18 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="924" y="71"/>
+            <point key="canvasLocation" x="924" y="27"/>
         </scene>
-        <!--Device List-->
+        <!--Available Devices Table View Controller-->
         <scene sceneID="oDg-bT-VWB">
             <objects>
                 <tableViewController id="CDU-Jm-vGJ" customClass="CIOAvailableDevicesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="485-J7-aCd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DeviceCell" textLabel="5BI-wJ-nFs" detailTextLabel="3B8-cC-b4i" style="IBUITableViewCellStyleSubtitle" id="fXz-JK-Jv0">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DeviceCell" textLabel="5BI-wJ-nFs" detailTextLabel="3B8-cC-b4i" rowHeight="52" style="IBUITableViewCellStyleSubtitle" id="fXz-JK-Jv0" customClass="CIODeviceTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXz-JK-Jv0" id="peG-d0-cOa">
@@ -147,6 +147,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pFf-cV-bVD" kind="push" identifier="ShowDeviceInfo" id="oed-Ge-yCs"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -154,12 +157,49 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Device List" id="GeC-ib-fpm"/>
+                    <navigationItem key="navigationItem" id="jTv-gj-LKv"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlB-da-g2k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="666"/>
+            <point key="canvasLocation" x="1332" y="804"/>
+        </scene>
+        <!--Device Info View Controller-->
+        <scene sceneID="0Zz-Wd-tea">
+            <objects>
+                <viewController id="pFf-cV-bVD" customClass="CIODeviceInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mQM-GZ-N8B"/>
+                        <viewControllerLayoutGuide type="bottom" id="jxC-Yx-VMS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vOh-WP-5Nc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQ5-dn-Qqm">
+                                <rect key="frame" x="102" y="220" width="116" height="30"/>
+                                <state key="normal" title="Print This Device">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="printQRCodeForDevice:" destination="pFf-cV-bVD" eventType="touchUpInside" id="mbg-F0-80e"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="02f-a5-aqT">
+                                <rect key="frame" x="85" y="62" width="150" height="150"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GB7-gI-Edi"/>
+                    <connections>
+                        <outlet property="deviceQRCode" destination="02f-a5-aqT" id="S0D-wG-ShC"/>
+                        <outlet property="printButton" destination="eQ5-dn-Qqm" id="9iS-G5-71m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oda-Rj-Rly" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1742" y="804"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="iQd-el-iLp">
@@ -173,12 +213,31 @@
                     </tabBar>
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="iA7-HM-GnS"/>
-                        <segue destination="CDU-Jm-vGJ" kind="relationship" relationship="viewControllers" id="NDD-6h-DWo"/>
+                        <segue destination="0bi-DL-3Ji" kind="relationship" relationship="viewControllers" id="NDD-6h-DWo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WkO-ny-wIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="398" y="27"/>
+        </scene>
+        <!--Device List-->
+        <scene sceneID="zWx-I2-HZf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="0bi-DL-3Ji" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Device List" id="GeC-ib-fpm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a8e-Jv-6nA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CDU-Jm-vGJ" kind="relationship" relationship="rootViewController" id="d4t-ls-ENB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="77K-pv-4iM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="924" y="804"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
